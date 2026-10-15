@@ -60,7 +60,7 @@ body {
 .main {
   position: relative;
   z-index: 1;
-  padding: 1.25rem 1rem 2.5rem;
+  padding: 1rem 1rem 1.25rem;
   width: 100%;
   max-width: 100%;
   overflow-x: clip;
@@ -667,7 +667,7 @@ body.lightbox-open {
   position: relative;
   width: 100%;
   max-width: 100%;
-  margin-bottom: 0.85rem;
+  margin-bottom: 0;
   overflow: clip;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
@@ -1109,9 +1109,10 @@ body.lightbox-open {
   position: relative;
 }
 
-/* Fluid Exit State */
+/* Fluid Exit State - Completely removed from layout to eliminate phantom scroll height */
 .glass-carousel-section.view-hidden,
 .gallery-grid.view-hidden {
+  display: none !important;
   opacity: 0 !important;
   transform: translateY(24px) scale(0.96) !important;
   filter: blur(10px) !important;
@@ -1121,6 +1122,13 @@ body.lightbox-open {
   top: 0 !important;
   left: 0 !important;
   right: 0 !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  max-height: 0 !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
   z-index: 0 !important;
 }
 
@@ -1132,7 +1140,8 @@ body.lightbox-open {
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
-  margin-top: 0.85rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0;
   position: relative;
   z-index: 10;
 }
@@ -1192,7 +1201,7 @@ body.lightbox-open {
    ========================================================================== */
 @media (max-width: 768px) {
   .main {
-    padding: 1.25rem 0.85rem 2.5rem;
+    padding: 0.85rem 0.75rem 1rem;
   }
 
   .topbar {
@@ -1333,6 +1342,7 @@ body.lightbox-open {
 
   .carousel-nav-arrows {
     margin-top: 0.65rem;
+    margin-bottom: 0;
     gap: 0.65rem;
   }
 
@@ -1480,7 +1490,7 @@ body.lightbox-open {
 
 @media (max-width: 380px) {
   .main {
-    padding: 0.75rem 0.5rem 1.75rem;
+    padding: 0.65rem 0.5rem 0.85rem;
   }
 
   .topbar {
