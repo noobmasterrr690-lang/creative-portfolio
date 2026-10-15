@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="solo.c — Creative Designer & Multimedia Artist. Spotify, Netflix & iOS inspired portfolio featuring visual storytelling, UI/UX, and an interactive 8-bit companion.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="shortcut icon" href="assets/img/favicon.svg" type="image/svg+xml">
+
+  <!-- Google Fonts: Plus Jakarta Sans, Syne, Space Mono, Press Start 2P --> <!-- taste-skill-ignore -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Press+Start+2P&family=Space+Mono:wght@400;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet"> <!-- taste-skill-ignore -->
+
+  <!-- Remixicon -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css">
+
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css">
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/boot.css">
+
+  <title>solo.c | Multimedia Artist & Designer</title>
+</head>
+<body>
+  <!-- Boot Sequence Overlay (removed by JS after animation) -->
+  <div class="boot-overlay" id="boot-overlay" aria-hidden="true">
+    <canvas class="boot-scanlines" id="boot-scanlines"></canvas>
+    <div class="boot-content">
+      <div class="boot-cat">
+        <!-- inline the existing favicon SVG pixel cat, scaled up -->
+        <svg viewBox="0 0 64 64" aria-hidden="true" class="boot-cat__svg">
+          <defs>
+            <linearGradient id="boot-grad" x1="12" y1="8" x2="52" y2="56" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#e0ffea"/>
+              <stop offset=".4" stop-color="#00f59b"/>
+              <stop offset="1" stop-color="#15803d"/>
+            </linearGradient>
+          </defs>
+          <g shape-rendering="crispEdges">
+            <path d="M14 22V14h8v5h20v-5h8v8h4v27h-8v5H18v-5h-8V22z" fill="url(#boot-grad)"/>
+            <path d="M18 18h5v6h-5zM41 18h5v6h-5z" fill="#d2ffdc" opacity=".85"/>
+            <path d="M19 30h8v8h-8zM37 30h8v8h-8z" fill="#080d0a"/>
+            <rect x="22" y="32" width="3" height="3" fill="#ffffff"/>
+            <rect x="40" y="32" width="3" height="3" fill="#ffffff"/>
+            <path d="M29 39h6v5h-6zM31 44h2v4h-2z" fill="#0d381e"/>
+            <path d="M26 45h4v3h4v-3h4v5h-4v2h-4v-2h-4z" fill="#e0ffea"/>
+            <path d="M12 40h13v2H12zM11 46h15v2H11zM39 40h13v2H39zM38 46h15v2H38z" fill="#b8ffc7" opacity=".85"/>
+          </g>
+        </svg>
+      </div>
+      <div class="boot-terminal">
+        <p class="boot-line" id="boot-line-1"></p>
+        <p class="boot-line" id="boot-line-2"></p>
+        <p class="boot-line" id="boot-line-3"></p>
+        <p class="boot-line boot-line--accent" id="boot-line-4"></p>
+      </div>
+      <div class="boot-bar-wrap">
+        <div class="boot-bar" id="boot-bar"><div class="boot-bar__fill" id="boot-bar-fill"></div></div>
+        <span class="boot-bar__pct" id="boot-pct">0%</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Ambient lighting backdrops -->
+  <div class="ambient-glow ambient-glow--top" aria-hidden="true"></div>
+  <div class="ambient-glow ambient-glow--center" aria-hidden="true"></div>
+  <div class="ambient-glow ambient-glow--bottom" aria-hidden="true"></div>
+  <div class="ambient-grid" aria-hidden="true"></div>
+
+  <!-- iOS Floating Dynamic Island Header -->
+  <header class="header" id="header">
+    <nav class="nav container">
+      <div class="nav__dock">
+        <!-- Logo with interactive 8-bit cat -->
+        <a href="#home" class="nav__logo" aria-label="solo.c Home">
+          <span class="nav__logo-cat" id="nav-cat" title="Click to pet me!">
+            <img src="assets/img/favicon.svg?v=2" alt="solo.c cat mascot" class="nav__cat-default">
+            <img src="assets/img/favicon-smile.svg?v=1" alt="solo.c cat happy" class="nav__cat-smile">
+          </span>
+          <span class="nav__logo-text">solo.c</span>
+        </a>
+
+        <!-- Live Status Pill -->
+        <div class="nav__status-pill" title="Currently open for freelance & full-time roles">
+          <span class="status-radar" aria-hidden="true"></span>
+          <span class="status-text">AVAILABLE FOR WORK</span>
+        </div>
+
+        <!-- Desktop Navigation Links (Inline within Dock) -->
+        <ul class="nav__list nav__list--desktop">
+          <li><a href="#home" class="nav__link active-link">Home</a></li>
+          <li><a href="#work" class="nav__link">Works</a></li>
+          <li><a href="#services" class="nav__link">Services</a></li>
+          <li><a href="#skills" class="nav__link">Skills</a></li>
+          <li><a href="#about" class="nav__link">About</a></li>
+        </ul>
+
+        <!-- Header Actions -->
+        <div class="nav__actions">
+          <a href="game.html" class="nav__arcade-btn" title="Launch Cat Dash Arcade Game">
+            <i class="ri-gamepad-line"></i>
+            <span>Arcade</span>
+          </a>
+          <a href="#contact" class="nav__cta-btn">
+            <span>Let's Talk</span>
+            <i class="ri-arrow-right-up-line"></i>
+          </a>
+          <button class="nav__toggle" id="nav-toggle" aria-label="Open navigation menu">
+            <i class="ri-menu-4-line"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Mobile Navigation Backdrop (Placed outside dock to eliminate blur trap) -->
+  <div class="nav__backdrop" id="nav-backdrop" aria-hidden="true"></div>
+
+  <!-- Mobile Navigation Drawer (Independent viewport-anchored drawer) -->
+  <div class="nav__menu" id="nav-menu" role="dialog" aria-modal="true" aria-label="Main Navigation">
+    <div class="nav__menu-header">
+      <div class="nav__menu-brand">
+        <img src="assets/img/favicon.svg" alt="" class="nav__menu-cat">
+        <span>solo.c // nav</span>
+      </div>
+      <button class="nav__close" id="nav-close" aria-label="Close menu">
+        <i class="ri-close-large-line"></i>
+      </button>
+    </div>
+
+    <ul class="nav__list nav__list--mobile">
+      <li><a href="#home" class="nav__link active-link"><i class="ri-home-5-line"></i> Home</a></li>
+      <li><a href="#work" class="nav__link"><i class="ri-folder-open-line"></i> Works</a></li>
+      <li><a href="#services" class="nav__link"><i class="ri-sparkling-line"></i> Services</a></li>
+      <li><a href="#skills" class="nav__link"><i class="ri-code-box-line"></i> Skills</a></li>
+      <li><a href="#about" class="nav__link"><i class="ri-user-smile-line"></i> About</a></li>
+      <li class="nav__item-mobile"><a href="game.html" class="nav__link nav__link--arcade"><i class="ri-gamepad-line"></i> Play Cat Dash</a></li>
+    </ul>
+
+    <div class="nav__menu-footer">
+      <div class="nav__menu-status">
+        <span class="status-radar" aria-hidden="true"></span>
+        <span class="status-text">AVAILABLE FOR WORK</span>
+      </div>
+      <a href="#contact" class="btn btn--primary nav__menu-cta">
+        <span>Let's Talk</span>
+        <i class="ri-arrow-right-up-line"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="main">
+
+    <!-- HERO SECTION: Asymmetrical Command Center -->
+    <section class="home section" id="home">
+      <div class="home__container container">
+        
+        <!-- Left Editorial & High-Density Stats -->
+        <div class="home__editorial">
+          <!-- Pixel HUD Eyebrow -->
+          <div class="hud-tag">
+            <span class="hud-tag__dot"></span>
+            <span class="hud-tag__pixel">PROLOGUE // PLAYER 01 &amp; COMPANION</span>
+            <span class="hud-tag__loc">MNL, PH</span>
+          </div>
+
+          <!-- Bold, Confident Headline -->
+          <h1 class="home__title">
+            Crafting digital worlds with <span class="text-gradient">pixel precision.</span>
+          </h1>
+
+          <!-- Dynamic Role Switcher -->
+          <div class="home__role-bar">
+            <span class="role-label">FOCUS //</span>
+            <span id="home-typed" class="role-typed" aria-label="Multimedia Artist"></span>
+          </div>
+
+          <!-- Confident Body Copy -->
+          <p class="home__description">
+            Bridging raw aesthetic storytelling, fluid UI/UX systems, and tactile digital craft. Designed for modern creators, forward-thinking brands, and game-inspired web experiences.
+          </p>
+
+          <!-- Action Button Group -->
+          <div class="home__cta-group">
+            <a href="#work" class="btn btn--primary tilt-button">
+              <span>Explore Works</span>
+              <i class="ri-arrow-down-line"></i>
+            </a>
+            <a href="game.html" class="btn btn--glass tilt-button" title="Play Cat Dash">
+              <i class="ri-gamepad-fill"></i>
+              <span>Play Cat Dash</span>
+              <span class="btn__badge">MINI-GAME</span>
+            </a>
+          </div>
+
+          <!-- Quick Metrics Bento Bar -->
+          <div class="metrics-bento">
+            <div class="metric-item glass-card">
+              <span class="metric-item__num">5<span class="metric-accent">+</span></span>
+              <span class="metric-item__label">Years Crafting</span>
+            </div>
+            <div class="metric-item glass-card">
+              <span class="metric-item__num">32<span class="metric-accent">+</span></span>
+              <span class="metric-item__label">Works Shipped</span>
+            </div>
+            <div class="metric-item glass-card">
+              <span class="metric-item__num">4<span class="metric-accent">×</span></span>
+              <span class="metric-item__label">Disciplines</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Interactive Cat Holo-Pod & Cyber Business Card Flipper -->
+        <div class="home__visual">
+          <div class="card-flipper-wrapper tilt-card" id="card-flipper-wrapper">
+            <div class="card-flipper" id="card-flipper">
+
+              <!-- FRONT: Interactive Cat Holo-Pod Centerpiece -->
+              <div class="holo-pod card-face card-face--front glass-panel" id="holo-pod">
+                <!-- Pod Ambient Ring & Specular Sheen -->
+                <div class="holo-pod__specular" aria-hidden="true"></div>
+                <div class="holo-pod__radar-ring" aria-hidden="true"></div>
+                <canvas class="holo-pod__particles" aria-hidden="true"></canvas>
+
+                <!-- Pod Top HUD with Flip Button -->
+                <div class="holo-pod__header">
+                  <div class="pod-status">
+                    <span class="pod-status__dot"></span>
+                    <span class="pod-status__text">HOLO-COMPANION // SYNCED</span>
+                  </div>
+                  <div class="pod-header__actions">
+                    <span class="pod-fps">60 FPS</span>
+                    <button class="card-flip-btn" id="flip-to-back-btn" type="button" aria-label="Flip to Business Card" title="Flip to Business Card">
+                      <i class="ri-id-card-line"></i>
+                      <span>Business Card</span>
+                      <i class="ri-loop-right-line flip-spin-icon"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Crisp 8-Bit Cat Mascot (SVG) -->
+                <div class="cat-stage" id="cat-stage" title="Click or tap to pet me!">
+                  <svg class="cat-avatar" viewBox="0 0 64 64" role="img" aria-label="Interactive 8-bit cat mascot">
+                    <defs>
+                      <linearGradient id="cat-glass-glow" x1="12" y1="8" x2="52" y2="56" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#e0ffea"/>
+                        <stop offset=".4" stop-color="#00f59b"/>
+                        <stop offset="1" stop-color="#15803d"/>
+                      </linearGradient>
+                    </defs>
+
+                    <g class="cat-glyphs" shape-rendering="crispEdges">
+                      <!-- Cat Body & Silhouette -->
+                      <path class="cat-body" d="M14 22V14h8v5h20v-5h8v8h4v27h-8v5H18v-5h-8V22z" fill="url(#cat-glass-glow)"/>
+                      
+                      <!-- Ears Accent -->
+                      <path d="M18 18h5v6h-5zM41 18h5v6h-5z" fill="#d2ffdc" opacity=".85"/>
+                      
+                      <!-- Eye Sockets -->
+                      <path d="M19 30h8v8h-8zM37 30h8v8h-8z" fill="#080d0a"/>
+                      
+                      <!-- Animated Eyelids (Blinking) -->
+                      <rect class="cat-eyelid cat-eyelid--left" x="19" y="30" width="8" height="8" fill="#00f59b"/>
+                      <rect class="cat-eyelid cat-eyelid--right" x="37" y="30" width="8" height="8" fill="#00f59b"/>
+                      
+                      <!-- Interactive Pupils (Tracks mouse cursor) -->
+                      <rect class="cat-pupil cat-pupil--left" x="22" y="32" width="3" height="3" fill="#ffffff"/>
+                      <rect class="cat-pupil cat-pupil--right" x="40" y="32" width="3" height="3" fill="#ffffff"/>
+                      
+                      <!-- Snout / Nose -->
+                      <path d="M29 39h6v5h-6zM31 44h2v4h-2z" fill="#0d381e"/>
+                      
+                      <!-- Smile (toggles on hover or pet) -->
+                      <path class="cat-smile" d="M26 45h4v3h4v-3h4v5h-4v2h-4v-2h-4z" fill="#e0ffea"/>
+                      
+                      <!-- Whiskers -->
+                      <path d="M12 40h13v2H12zM11 46h15v2H11zM39 40h13v2H39zM38 46h15v2H38z" fill="#b8ffc7" opac8ity=".85"/>
+                      <path d="M18 24h5v2h-5zM41 24h5v2h-5z" fill="#effff2" opacity=".9"/>
+                    </g>
+                  </svg>
+
+                  <!-- Heart / Petting burst container -->
+                  <div class="cat-reactions" id="cat-reactions" aria-hidden="true"></div>
+
+                  <!-- Interactive Dialogue Tooltip Bubble -->
+                  <div class="cat-dialogue" id="cat-dialogue">
+                    <span class="cat-dialogue__pixel">"Purr... Click me to pet!"</span>
+                  </div>
+                </div>
+
+                <!-- Pod Bottom HUD Bar -->
+                <div class="holo-pod__footer">
+                  <div class="pod-readout">
+                    <span class="pod-readout__label">MOOD:</span>
+                    <span class="pod-readout__val" id="cat-mood-val">CURIOUS</span>
+                  </div>
+                  <button class="pod-pet-btn" id="pod-pet-action" type="button">
+                    <i class="ri-heart-3-fill"></i>
+                    <span>Pet Companion</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- BACK: Dynamic Executive Cyber Business Card -->
+              <div class="business-card card-face card-face--back glass-panel" id="business-card">
+                <!-- Dynamic Sheen Layers & Watermark -->
+                <div class="bcard__specular" aria-hidden="true"></div>
+                <div class="bcard__foil-sheen" id="bcard-foil-sheen" aria-hidden="true"></div>
+                <div class="bcard__ambient-grid" aria-hidden="true"></div>
+                <div class="bcard__watermark-cat" aria-hidden="true">
+                  <img src="assets/img/favicon.svg" alt="" class="bcard__watermark-img">
+                </div>
+
+                <!-- Card Top Header -->
+                <div class="bcard__header">
+                  <div class="bcard__chip-group">
+                    <div class="bcard__chip" aria-hidden="true">
+                      <span class="chip-circuit c1"></span>
+                      <span class="chip-circuit c2"></span>
+                      <span class="chip-core"></span>
+                    </div>
+                    <div class="bcard__chip-meta">
+                      <span class="bcard__chip-badge">VIP VERIFIED // 01</span>
+                      <span class="bcard__chip-id">NFC &bull; CREATIVE ATELIER</span>
+                    </div>
+                  </div>
+
+                  <button class="card-flip-btn card-flip-btn--back" id="flip-to-front-btn" type="button" aria-label="Return to Cat Companion" title="Return to Cat Companion">
+                    <i class="ri-arrow-left-line"></i>
+                    <span>Holo-Cat</span>
+                    <i class="ri-loop-left-line flip-spin-icon"></i>
+                  </button>
+                </div>
+
+                <!-- Profile Section with Featured 8-Bit Cat Emblem -->
+                <div class="bcard__profile">
+                  <div class="bcard__avatar-stage" id="bcard-cat-emblem" title="solo.c official cat emblem — click for happy purrs!">
+                    <div class="bcard__avatar-radar" aria-hidden="true"></div>
+                    <div class="bcard__avatar-border">
+                      <img src="assets/img/favicon.svg" alt="solo.c pixel cat mascot emblem" class="bcard__cat-img">
+                    </div>
+                    <span class="bcard__online-ping" title="Available for projects"></span>
+                  </div>
+
+                  <div class="bcard__profile-details">
+                    <div class="bcard__role-meta">DIGITAL ATELIER &bull; CREATIVE TECH</div>
+                    <h3 class="bcard__title-name">solo.c <span class="bcard__title-tag">PRO</span></h3>
+                    <p class="bcard__title-desc">Senior Multimedia Artist &bull; UI/UX &bull; Motion</p>
+                    <div class="bcard__tags">
+                      <span class="bcard-tag">UI/UX</span>
+                      <span class="bcard-tag">Design Systems</span>
+                      <span class="bcard-tag">8-Bit Art</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Live Telemetry Strip (Manila Real-Time Clock & Availability) -->
+                <div class="bcard__telemetry">
+                  <div class="bcard__stat-item">
+                    <div class="bcard__stat-icon"><i class="ri-time-line"></i></div>
+                    <div class="bcard__stat-content">
+                      <span class="bcard__stat-label">LOCAL CLOCK (MNL // GMT+8)</span>
+                      <span class="bcard__stat-value" id="bcard-live-clock">12:00:00 AM</span>
+                    </div>
+                  </div>
+
+                  <div class="bcard__stat-item">
+                    <div class="bcard__stat-icon bcard__stat-icon--pulse"><span class="status-radar" aria-hidden="true"></span></div>
+                    <div class="bcard__stat-content">
+                      <span class="bcard__stat-label">AVAILABILITY</span>
+                      <span class="bcard__stat-value bcard__stat-value--active">OPEN FOR WORK</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Contact Channel & One-Click Copy -->
+                <div class="bcard__contact-section">
+                  <div class="bcard__email-card">
+                    <div class="bcard__email-info">
+                      <i class="ri-mail-send-line bcard__mail-icon"></i>
+                      <div class="bcard__mail-text">
+                        <span class="bcard__mail-sub">OFFICIAL INBOX</span>
+                        <a href="mailto:benedictkier3474@gmail.com" class="bcard__mail-addr" id="bcard-email-val" title="Click to email directly">benedictkier3474@gmail.com</a>
+                      </div>
+                    </div>
+                    <button class="bcard__copy-btn" id="bcard-copy-btn" type="button" aria-label="Copy email address" title="Copy email address">
+                      <i class="ri-file-copy-line"></i>
+                      <span class="bcard__copy-label" id="bcard-copy-status">Copy</span>
+                    </button>
+                  </div>
+
+                  <div class="bcard__social-row">
+                    <a href="https://github.com/noobmasterrr690-lang" target="_blank" rel="noopener" class="bcard__social-chip" title="GitHub">
+                      <i class="ri-github-line"></i> <span>GitHub</span>
+                    </a>
+                    <a href="https://www.instagram.com/solo.c_c" target="_blank" rel="noopener" class="bcard__social-chip" title="Instagram">
+                      <i class="ri-instagram-line"></i> <span>Instagram</span>
+                    </a>
+                    <a href="https://web.facebook.com/wtfwtftwctfwhahahah.okhshsh/" target="_blank" rel="noopener" class="bcard__social-chip" title="Facebook">
+                      <i class="ri-facebook-line"></i> <span>Facebook</span>
+                    </a>
+                  </div>
+                </div>
+
+                <!-- Card Footer Barcode & CTA -->
+                <div class="bcard__footer">
+                  <div class="bcard__footer-meta">
+                    <span class="bcard__serial">KEY: 0x994_PIXEL_MNL</span>
+                    <div class="bcard__barcode" aria-hidden="true">
+                      <span></span><span></span><span></span><span></span>
+                      <span></span><span></span><span></span><span></span>
+                      <span></span><span></span><span></span><span></span>
+                    </div>
+                  </div>
+                  <a href="#contact" class="bcard__cta-btn" id="bcard-contact-btn">
+                    <span>Let's Connect</span>
+                    <i class="ri-arrow-right-up-line"></i>
+                  </a>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PORTFOLIO / WORK: Spotify & Netflix Content Shelves -->
+    <section class="work section" id="work">
+      <span id="samples" style="position:absolute;top:-100px;visibility:hidden;" aria-hidden="true"></span>
+      <div class="container">
+        
+        <!-- Shelf Header & Dense Controls -->
+        <div class="section__header-row">
+          <div>
+            <div class="hud-pill"><span class="story-chapter-num">Act 01</span> Featured Portfolio</div>
+            <h2 class="section__title">Featured <span>Creations</span></h2>
+          </div>
+
+          <!-- Category Filter Pills -->
+          <div class="work__filters" role="tablist" aria-label="Work Categories">
+            <button class="filter-pill active" data-filter="all" role="tab" aria-selected="true">All Works</button>
+            <button class="filter-pill" data-filter="photo" role="tab" aria-selected="false">Photography</button>
+            <button class="filter-pill" data-filter="design" role="tab" aria-selected="false">Graphic Design</button>
+            <button class="filter-pill" data-filter="art" role="tab" aria-selected="false">Digital Art</button>
+            <button class="filter-pill" data-filter="video" role="tab" aria-selected="false">Motion &amp; Video</button>
+          </div>
+        </div>
+
+        <!-- View Mode Switcher: 3D Carousel vs Shelf Grid -->
+        <div class="work-view-controls">
+          <div class="view-toggle-pill" role="tablist" aria-label="Featured Creations View Mode">
+            <button class="view-toggle-btn active" id="work-btn-carousel" type="button" role="tab" aria-selected="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M4 6h16v12H4z M2 8h2v8H2z M20 8h2v8h-2z"/></svg>
+              <span>3D Carousel</span>
+            </button>
+            <button class="view-toggle-btn" id="work-btn-shelf" type="button" role="tab" aria-selected="false">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M3 3h8v8H3zm10 0h8v8h-8zM3 13h8v8H3zm10 0h8v8h-8z"/></svg>
+              <span>Shelf Grid</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Featured Creations Views Container with Fluid Crossfade Transition -->
+        <div class="work-views-container" id="work-views-container">
+          <!-- 3D Coverflow Glassmorphism Carousel -->
+          <div class="work-carousel-section view-active" id="work-carousel-section" aria-label="3D Featured Creations Carousel">
+            <div class="work-carousel__stage" id="work-carousel-stage">
+              <div class="work-carousel__track" id="work-carousel-track">
+                <!-- Card 1: Photography -->
+                <article class="glass-card-3d" data-index="0" data-category="photo" data-href="gallery-photos.html" data-title="Urban Rhythm &amp; City Soul" data-badge="01 // PHOTOGRAPHY" data-desc="High-contrast monochrome street portraiture, intimate human moments, and raw candid life captured in the Philippines." data-meta="35mm // Monochrome Street" data-img="assets/img/photomain.jpg" tabindex="0">
+                  <div class="glass-card-3d__media">
+                    <img src="assets/img/photomain.jpg" alt="Urban Rhythm &amp; City Soul Photography" loading="lazy">
+                    <div class="glass-card-3d__top-row">
+                      <span class="glass-card-3d__expand-badge">Open Gallery &nearr;</span>
+                      <span class="glass-card-3d__menu-icon"><i class="ri-camera-lens-line"></i></span>
+                    </div>
+                  </div>
+                  <div class="glass-card-3d__body">
+                    <div class="glass-card-3d__header">
+                      <h3 class="glass-card-3d__title">Urban Rhythm &amp; City Soul</h3>
+                      <span class="glass-card-3d__counter">01 / 05</span>
+                    </div>
+                    <p class="glass-card-3d__desc">High-contrast monochrome street portraiture, intimate human moments, and raw candid life captured in the Philippines.</p>
+                    <div class="glass-card-3d__meta">
+                      <i class="ri-camera-3-line"></i>
+                      <span>35mm // Monochrome Street</span>
+                    </div>
+                  </div>
+                </article>
+
+                <!-- Card 2: Graphic Design -->
+                <article class="glass-card-3d" data-index="1" data-category="design" data-href="gallery-graphics.html" data-title="Paunahi &amp; Brand Systems" data-badge="02 // DESIGN" data-desc="Event key visuals, cinematic film posters, brand style guides, and typography systems." data-meta="Photoshop // Illustrator Key Art" data-img="assets/img/paunahi.jpg" tabindex="0">
+                  <div class="glass-card-3d__media">
+                    <img src="assets/img/paunahi.jpg" alt="Paunahi &amp; Brand Systems Graphic Design" loading="lazy">
+                    <div class="glass-card-3d__top-row">
+                      <span class="glass-card-3d__expand-badge">Open Gallery &nearr;</span>
+                      <span class="glass-card-3d__menu-icon"><i class="ri-brush-line"></i></span>
+                    </div>
+                  </div>
+                  <div class="glass-card-3d__body">
+                    <div class="glass-card-3d__header">
+                      <h3 class="glass-card-3d__title">Paunahi &amp; Brand Systems</h3>
+                      <span class="glass-card-3d__counter">02 / 05</span>
+                    </div>
+                    <p class="glass-card-3d__desc">Event key visuals, cinematic film posters, brand style guides, and typography systems.</p>
+                    <div class="glass-card-3d__meta">
+                      <i class="ri-layout-masonry-line"></i>
+                      <span>Photoshop // Illustrator Key Art</span>
+                    </div>
+                  </div>
+                </article>
+
+                <!-- Card 3: Architectural Ink Studies -->
+                <article class="glass-card-3d" data-index="2" data-category="art" data-href="gallery-artwork.html" data-title="Architectural Ink Studies" data-badge="03 // ILLUSTRATION" data-desc="Hand-drawn crosshatch architectural studies, alpine cabins, subterranean dwellings, and structural sketchbooks." data-meta="Micron // Ink on Paper" data-img="assets/img/artmain.jpg" tabindex="0">
+                  <div class="glass-card-3d__media">
+                    <img src="assets/img/artmain.jpg" alt="Architectural Ink Studies Illustration" loading="lazy">
+                    <div class="glass-card-3d__top-row">
+                      <span class="glass-card-3d__expand-badge">Open Gallery &nearr;</span>
+                      <span class="glass-card-3d__menu-icon"><i class="ri-quill-pen-line"></i></span>
+                    </div>
+                  </div>
+                  <div class="glass-card-3d__body">
+                    <div class="glass-card-3d__header">
+                      <h3 class="glass-card-3d__title">Architectural Ink Studies</h3>
+                      <span class="glass-card-3d__counter">03 / 05</span>
+                    </div>
+                    <p class="glass-card-3d__desc">Hand-drawn crosshatch architectural studies, alpine cabins, subterranean dwellings, and structural sketchbooks.</p>
+                    <div class="glass-card-3d__meta">
+                      <i class="ri-pencil-ruler-2-line"></i>
+                      <span>Micron // Ink on Paper</span>
+                    </div>
+                  </div>
+                </article>
+
+                <!-- Card 4: Campus Documentaries & Reels -->
+                <article class="glass-card-3d" data-index="3" data-category="video" data-href="gallery-videos.html" data-title="Campus Documentaries &amp; Reels" data-badge="04 // VIDEO &amp; REELS" data-desc="High-energy viral reels, cinematic event highlights, nocturnal drone footage, and festival sports coverage." data-meta="Premiere // DaVinci Cinematography" data-img="assets/img/videomain.jpg" tabindex="0">
+                  <div class="glass-card-3d__media">
+                    <img src="assets/img/videomain.jpg" alt="Campus Documentaries &amp; Reels Motion" loading="lazy">
+                    <div class="glass-card-3d__top-row">
+                      <span class="glass-card-3d__expand-badge">Open Gallery &nearr;</span>
+                      <span class="glass-card-3d__menu-icon"><i class="ri-film-line"></i></span>
+                    </div>
+                  </div>
+                  <div class="glass-card-3d__body">
+                    <div class="glass-card-3d__header">
+                      <h3 class="glass-card-3d__title">Campus Documentaries &amp; Reels</h3>
+                      <span class="glass-card-3d__counter">04 / 05</span>
+                    </div>
+                    <p class="glass-card-3d__desc">High-energy viral reels, cinematic event highlights, nocturnal drone footage, and festival sports coverage.</p>
+                    <div class="glass-card-3d__meta">
+                      <i class="ri-video-line"></i>
+                      <span>Premiere // DaVinci Cinematography</span>
+                    </div>
+                  </div>
+                </article>
+
+                <!-- Card 5: Cat Dash Mini-Game -->
+                <article class="glass-card-3d" data-index="4" data-category="art" data-href="game.html" data-title="Cat Dash: Cyber Runner" data-badge="05 // ARCADE MINI-GAME" data-desc="HTML5 Canvas physics, retro 8-bit collision loops, and high-score survival gameplay built from scratch." data-meta="Canvas API // Vanilla JS Arcade" data-img="assets/img/pop.png" tabindex="0">
+                  <div class="glass-card-3d__media">
+                    <img src="assets/img/pop.png" alt="Cat Dash: Cyber Runner Mini-Game" loading="lazy">
+                    <div class="glass-card-3d__top-row">
+                      <span class="glass-card-3d__expand-badge">Play Game &nearr;</span>
+                      <span class="glass-card-3d__menu-icon"><i class="ri-gamepad-line"></i></span>
+                    </div>
+                  </div>
+                  <div class="glass-card-3d__body">
+                    <div class="glass-card-3d__header">
+                      <h3 class="glass-card-3d__title">Cat Dash: Cyber Runner</h3>
+                      <span class="glass-card-3d__counter">05 / 05</span>
+                    </div>
+                    <p class="glass-card-3d__desc">HTML5 Canvas physics, retro 8-bit collision loops, and high-score survival gameplay built from scratch.</p>
+                    <div class="glass-card-3d__meta">
+                      <i class="ri-gamepad-line"></i>
+                      <span>Canvas API // Vanilla JS Arcade</span>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </div>
+
+            <!-- 3D Carousel Navigation Arrows -->
+            <div class="carousel-nav-arrows" id="work-carousel-nav">
+              <button class="shelf-nav-btn" id="work-prev-btn" type="button" aria-label="Previous creation">
+                <i class="ri-arrow-left-s-line"></i>
+              </button>
+              <button class="shelf-nav-btn" id="work-next-btn" type="button" aria-label="Next creation">
+                <i class="ri-arrow-right-s-line"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Netflix / Spotify Shelf Swiper View -->
+          <div class="work__carousel-wrapper view-hidden" id="work-shelf-wrapper">
+          <div class="swiper work__swiper">
+            <div class="swiper-wrapper">
+
+              <!-- Card 1: Photography -->
+              <article class="swiper-slide work-card tilt-card" data-category="photo">
+                <a href="gallery-photos.html" class="work-card__link" aria-label="Explore Photography Gallery">
+                  <div class="work-card__media work-card__media--photo">
+                    <div class="work-card__badges">
+                      <span class="badge badge--emerald">01 // PHOTOGRAPHY</span>
+                      <span class="badge badge--dark">PHOTOMAIN COVER</span>
+                    </div>
+                    <div class="work-card__hover-glow" aria-hidden="true"></div>
+                  </div>
+                  <div class="work-card__details">
+                    <div class="work-card__category">Street &amp; Documentary</div>
+                    <h3 class="work-card__title">Urban Rhythm &amp; City Soul</h3>
+                    <p class="work-card__excerpt">High-contrast monochrome street portraiture, intimate human moments, and raw candid life captured in the Philippines.</p>
+                    <div class="work-card__footer">
+                      <span class="work-card__cta">Open Gallery <i class="ri-arrow-right-line"></i></span>
+                      <span class="work-card__tech">35mm // Monochrome</span>
+                    </div>
+                  </div>
+                </a>
+              </article>
+
+              <!-- Card 2: Graphic Design -->
+              <article class="swiper-slide work-card tilt-card" data-category="design">
+                <a href="gallery-graphics.html" class="work-card__link" aria-label="Explore Graphic Design Gallery">
+                  <div class="work-card__media work-card__media--design">
+                    <div class="work-card__badges">
+                      <span class="badge badge--emerald">02 // DESIGN</span>
+                      <span class="badge badge--dark">PAUNAHI COVER</span>
+                    </div>
+                    <div class="work-card__hover-glow" aria-hidden="true"></div>
+                  </div>
+                  <div class="work-card__details">
+                    <div class="work-card__category">Visual Identity &amp; Key Art</div>
+                    <h3 class="work-card__title">Paunahi &amp; Brand Systems</h3>
+                    <p class="work-card__excerpt">Event key visuals, cinematic film posters, brand style guides, and typography systems.</p>
+                    <div class="work-card__footer">
+                      <span class="work-card__cta">Open Gallery <i class="ri-arrow-right-line"></i></span>
+                      <span class="work-card__tech">Photoshop // Illustrator</span>
+                    </div>
+                  </div>
+                </a>
+              </article>
+
+              <!-- Card 3: Architectural Ink Studies & Illustration -->
+              <article class="swiper-slide work-card tilt-card" data-category="art">
+                <a href="gallery-artwork.html" class="work-card__link" aria-label="Explore Artwork Gallery">
+                  <div class="work-card__media work-card__media--art">
+                    <div class="work-card__badges">
+                      <span class="badge badge--emerald">03 // ILLUSTRATION</span>
+                      <span class="badge badge--dark">INK STUDIES COVER</span>
+                    </div>
+                    <div class="work-card__hover-glow" aria-hidden="true"></div>
+                  </div>
+                  <div class="work-card__details">
+                    <div class="work-card__category">Pen &amp; Ink // Architecture</div>
+                    <h3 class="work-card__title">Architectural Ink Studies</h3>
+                    <p class="work-card__excerpt">Hand-drawn crosshatch architectural studies, alpine cabins, subterranean dwellings, and structural sketchbooks.</p>
+                    <div class="work-card__footer">
+                      <span class="work-card__cta">Open Gallery <i class="ri-arrow-right-line"></i></span>
+                      <span class="work-card__tech">Micron // Ink on Paper</span>
+                    </div>
+                  </div>
+                </a>
+              </article>
+
+              <!-- Card 4: Motion & Video -->
+              <article class="swiper-slide work-card tilt-card" data-category="video">
+                <a href="gallery-videos.html" class="work-card__link" aria-label="Explore Video Gallery">
+                  <div class="work-card__media work-card__media--video">
+                    <div class="work-card__badges">
+                      <span class="badge badge--emerald">04 // VIDEO &amp; REELS</span>
+                      <span class="badge badge--dark">PASIKLABAN HIGHLIGHTS</span>
+                    </div>
+                    <div class="work-card__hover-glow" aria-hidden="true"></div>
+                  </div>
+                  <div class="work-card__details">
+                    <div class="work-card__category">Cinematography &amp; Editing</div>
+                    <h3 class="work-card__title">Campus Documentaries &amp; Reels</h3>
+                    <p class="work-card__excerpt">High-energy viral reels, cinematic event highlights, nocturnal drone footage, and festival sports coverage.</p>
+                    <div class="work-card__footer">
+                      <span class="work-card__cta">Open Gallery <i class="ri-arrow-right-line"></i></span>
+                      <span class="work-card__tech">Premiere // DaVinci</span>
+                    </div>
+                  </div>
+                </a>
+              </article>
+
+              <!-- Card 5: Interactive Arcade Experience -->
+              <article class="swiper-slide work-card tilt-card" data-category="art">
+                <a href="game.html" class="work-card__link" aria-label="Play Cat Dash Mini-Game">
+                  <div class="work-card__media work-card__media--game">
+                    <div class="work-card__badges">
+                      <span class="badge badge--emerald">05 // ARCADE MINI-GAME</span>
+                      <span class="badge badge--dark">PLAYABLE</span>
+                    </div>
+                    <div class="work-card__hover-glow" aria-hidden="true"></div>
+                  </div>
+                  <div class="work-card__details">
+                    <div class="work-card__category">Game Design &amp; Code</div>
+                    <h3 class="work-card__title">Cat Dash: Cyber Runner</h3>
+                    <p class="work-card__excerpt">HTML5 Canvas physics, retro 8-bit collision loops, and high-score survival gameplay built from scratch.</p>
+                    <div class="work-card__footer">
+                      <span class="work-card__cta">Play Now <i class="ri-gamepad-line"></i></span>
+                      <span class="work-card__tech">Canvas API // Vanilla JS</span>
+                    </div>
+                  </div>
+                </a>
+              </article>
+
+            </div>
+
+            <!-- Shelf Pagination & Controls -->
+            <div class="work__shelf-controls">
+              <div class="carousel-nav-arrows">
+                <button class="shelf-nav-btn work__prev" type="button" aria-label="Previous Slide">
+                  <i class="ri-arrow-left-s-line"></i>
+                </button>
+                <button class="shelf-nav-btn work__next" type="button" aria-label="Next Slide">
+                  <i class="ri-arrow-right-s-line"></i>
+                </button>
+              </div>
+              <div class="swiper-pagination work__pagination"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <!-- CAPABILITIES & SERVICES: iOS Glass Bento Grid -->
+    <section class="services section" id="services">
+      <span id="service" style="position:absolute;top:-100px;visibility:hidden;" aria-hidden="true"></span>
+      <div class="container">
+        
+        <div class="section__center-header">
+          <div class="hud-pill"><span class="story-chapter-num">Act 02</span> Core Services</div>
+          <h2 class="section__title">Core <span>Services</span></h2>
+          <p class="section__subtitle">High-fidelity design execution engineered with consumer-grade polish and game-like responsiveness.</p>
+        </div>
+
+        <div class="services__bento-grid">
+          
+          <!-- Bento 1: UI/UX & Digital Products (Large) -->
+          <article class="bento-card bento-card--large glass-card tilt-card">
+            <div class="bento-card__glow" aria-hidden="true"></div>
+            <div class="bento-card__header">
+              <div class="bento-card__icon-box">
+                <i class="ri-layout-masonry-line"></i>
+              </div>
+              <span class="bento-card__code">UI &amp; UX Design</span>
+            </div>
+            <h3 class="bento-card__title">Digital Products &amp; Design Systems</h3>
+            <p class="bento-card__text">
+              Designing immersive, intuitive web &amp; mobile interfaces with tight component architecture, fluid micro-interactions, responsive grids, and design tokens inspired by iOS &amp; modern apps.
+            </p>
+            <div class="bento-card__chips">
+              <span>Design Systems</span>
+              <span>Figma Prototypes</span>
+              <span>Wireframing</span>
+              <span>User Flows</span>
+              <span>Micro-interactions</span>
+            </div>
+          </article>
+
+          <!-- Bento 2: Graphic & Brand Design -->
+          <article class="bento-card glass-card tilt-card">
+            <div class="bento-card__glow" aria-hidden="true"></div>
+            <div class="bento-card__header">
+              <div class="bento-card__icon-box">
+                <i class="ri-palette-line"></i>
+              </div>
+              <span class="bento-card__code">Brand Identity</span>
+            </div>
+            <h3 class="bento-card__title">Brand &amp; Visual Systems</h3>
+            <p class="bento-card__text">
+              Crafting distinct brand marks, editorial typography, marketing collateral, and social design kits that stand out from template noise.
+            </p>
+            <div class="bento-card__chips">
+              <span>Identity Design</span>
+              <span>Typography</span>
+              <span>Campaign Art</span>
+              <span>Social Kits</span>
+            </div>
+          </article>
+
+          <!-- Bento 3: Digital Art & Retro Pixel Craft -->
+          <article class="bento-card glass-card tilt-card">
+            <div class="bento-card__glow" aria-hidden="true"></div>
+            <div class="bento-card__header">
+              <div class="bento-card__icon-box">
+                <i class="ri-brush-3-line"></i>
+              </div>
+              <span class="bento-card__code">Digital &amp; Pixel Art</span>
+            </div>
+            <h3 class="bento-card__title">Illustration &amp; 8-Bit Characters</h3>
+            <p class="bento-card__text">
+              Blending retro pixel aesthetics with clean modern layouts. Custom character design, mascot branding, and atmospheric digital artwork.
+            </p>
+            <div class="bento-card__chips">
+              <span>Pixel Art</span>
+              <span>Character IP</span>
+              <span>Digital Canvas</span>
+              <span>Storyboards</span>
+            </div>
+          </article>
+
+          <!-- Bento 4: Motion Graphics & Editorial Video -->
+          <article class="bento-card bento-card--large glass-card tilt-card">
+            <div class="bento-card__glow" aria-hidden="true"></div>
+            <div class="bento-card__header">
+              <div class="bento-card__icon-box">
+                <i class="ri-film-line"></i>
+              </div>
+              <span class="bento-card__code">Cinema &amp; Motion</span>
+            </div>
+            <h3 class="bento-card__title">Motion Design &amp; Video Storytelling</h3>
+            <p class="bento-card__text">
+              Bringing still designs to life with kinetic pacing, 2D/3D motion accents, promotional social reels, and cinematic storytelling.
+            </p>
+            <div class="bento-card__chips">
+              <span>After Effects</span>
+              <span>Kinetic Type</span>
+              <span>Promo Reels</span>
+              <span>Sound Sync</span>
+              <span>3D Accents</span>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SKILLS ARSENAL: Game Inventory HUD -->
+    <section class="skills section" id="skills">
+      <div class="container">
+
+        <div class="skills__panel glass-panel">
+          <div class="skills__top-meta">
+            <div class="hud-tag">
+              <span class="hud-tag__dot"></span>
+              <span class="hud-tag__pixel">Act 03 &bull; Arsenal &amp; Stack</span>
+            </div>
+            <div class="skills__cat-hint">
+              <img src="assets/img/favicon.svg" alt="" class="skills__mini-cat">
+              <span>MASTERED TOOLS &amp; STACK</span>
+            </div>
+          </div>
+
+          <div class="skills__grid">
+            
+            <!-- Column 1: Design & Systems -->
+            <div class="skill-category">
+              <div class="skill-category__head">
+                <i class="ri-quill-pen-line"></i>
+                <h3>Product &amp; UI/UX</h3>
+              </div>
+              <div class="skill-items">
+                <div class="skill-pill"><span>Figma</span><span class="skill-lvl">LVL 99</span></div>
+                <div class="skill-pill"><span>Design Systems</span><span class="skill-lvl">LVL 95</span></div>
+                <div class="skill-pill"><span>Prototyping</span><span class="skill-lvl">LVL 90</span></div>
+                <div class="skill-pill"><span>Wireframing</span><span class="skill-lvl">LVL 92</span></div>
+                <div class="skill-pill"><span>User Research</span><span class="skill-lvl">LVL 88</span></div>
+                <div class="skill-pill"><span>Information Architecture</span><span class="skill-lvl">LVL 86</span></div>
+              </div>
+            </div>
+
+            <!-- Column 2: Visual & Graphic Arts -->
+            <div class="skill-category">
+              <div class="skill-category__head">
+                <i class="ri-brush-line"></i>
+                <h3>Visual &amp; Brand</h3>
+              </div>
+              <div class="skill-items">
+                <div class="skill-pill"><span>Photoshop</span><span class="skill-lvl">LVL 96</span></div>
+                <div class="skill-pill"><span>Illustrator</span><span class="skill-lvl">LVL 94</span></div>
+                <div class="skill-pill"><span>Typography</span><span class="skill-lvl">LVL 92</span></div>
+                <div class="skill-pill"><span>Pixel Art &amp; Aseprite</span><span class="skill-lvl">LVL 98</span></div>
+                <div class="skill-pill"><span>Layout Systems</span><span class="skill-lvl">LVL 90</span></div>
+                <div class="skill-pill"><span>Color Theory</span><span class="skill-lvl">LVL 95</span></div>
+              </div>
+            </div>
+
+            <!-- Column 3: Multimedia & Code -->
+            <div class="skill-category">
+              <div class="skill-category__head">
+                <i class="ri-code-s-slash-line"></i>
+                <h3>Motion &amp; Frontend</h3>
+              </div>
+              <div class="skill-items">
+                <div class="skill-pill"><span>After Effects</span><span class="skill-lvl">LVL 90</span></div>
+                <div class="skill-pill"><span>Premiere Pro</span><span class="skill-lvl">LVL 89</span></div>
+                <div class="skill-pill"><span>Blender 3D</span><span class="skill-lvl">LVL 80</span></div>
+                <div class="skill-pill"><span>HTML5 / CSS3</span><span class="skill-lvl">LVL 94</span></div>
+                <div class="skill-pill"><span>Modern JavaScript</span><span class="skill-lvl">LVL 88</span></div>
+                <div class="skill-pill"><span>Creative Web Dev</span><span class="skill-lvl">LVL 91</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION: Philosophy & Retro-Modern Fusion -->
+    <section class="about section" id="about">
+      <div class="container">
+        <div class="about__layout">
+          
+          <div class="about__narrative">
+            <div class="hud-pill"><span class="story-chapter-num">Act 04</span> Creator Manifesto</div>
+            <h2 class="about__heading">
+              Designing at the intersection of <span>playfulness</span> and <span>precision</span>.
+            </h2>
+            <p class="about__p">
+              I’m Bianca (solo.c), a multimedia artist and digital designer based in the Philippines. I treat every project like a thoughtfully directed world — balancing the tactile warmth of retro pixel craft with the clean, confident ergonomics of premium consumer technology.
+            </p>
+            <p class="about__p">
+              Whether architecting a cross-platform design system, directing editorial visuals, or coding interactive browser easter eggs, I build experiences that make people stop, feel something genuine, and remember the brand.
+            </p>
+            
+            <div class="about__quick-tags">
+              <span class="tag-pill"><i class="ri-map-pin-2-line"></i> Manila, Philippines</span>
+              <span class="tag-pill"><i class="ri-time-line"></i> GMT+8 (Global overlap)</span>
+              <span class="tag-pill"><i class="ri-heart-line"></i> 8-bit Enthusiast</span>
+            </div>
+          </div>
+
+          <div class="about__card glass-card tilt-card">
+            <div class="about__card-screen">
+              <div class="screen-topbar">
+                <span class="screen-dot screen-dot--red"></span>
+                <span class="screen-dot screen-dot--yellow"></span>
+                <span class="screen-dot screen-dot--green"></span>
+                <span class="screen-title">solo.c // manifesto.txt</span>
+              </div>
+              <div class="screen-body">
+                <pre class="screen-code"><code>// CORE CREATIVE PRINCIPLES
+const SOLO_DNA = {
+  rhythm: "Dense, intentional, no dead space",
+  tactile: "Every hover must feel alive",
+  identity: "Retro soul, modern execution",
+  standard: "Spotify x Netflix x Apple polish"
+};
+
+// 8-BIT CAT SAYS:
+"Thanks for checking out my human's work!"</code></pre>
+                <div class="screen-footer">
+                  <span class="screen-status-badge"><i class="ri-check-line"></i> COMPILED SUCCESS</span>
+                  <a href="game.html" class="screen-play-link">Jump into Arcade &rarr;</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS: Netflix-Style Top Reviews -->
+    <section class="testimonials section">
+      <div class="container">
+        
+        <div class="section__header-row">
+          <div>
+            <div class="hud-pill"><span class="story-chapter-num">Act 04.5</span> Industry Perspectives</div>
+            <h2 class="section__title">Client <span>Perspectives</span></h2>
+            <p class="section__subtitle" style="font-size:0.92rem;color:var(--text-secondary);margin-top:0.35rem;">Unfiltered reviews from completely real, totally unbiased industry icons.</p>
+          </div>
+          <div class="testimonial__arrows">
+            <button class="shelf-nav-btn test__prev" type="button" aria-label="Previous Testimonial">
+              <i class="ri-arrow-left-s-line"></i>
+            </button>
+            <button class="shelf-nav-btn test__next" type="button" aria-label="Next Testimonial">
+              <i class="ri-arrow-right-s-line"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="swiper testimonial__swiper">
+          <div class="swiper-wrapper">
+            
+            <!-- 01: Gordon Ramsay -->
+            <article class="swiper-slide testimonial-card glass-card tilt-card">
+              <div class="testimonial-card__top">
+                <div class="stars">
+                  <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>
+                </div>
+                <span class="testimonial-card__rating">5.0 / 5.0</span>
+              </div>
+              <blockquote class="testimonial-card__quote">
+                “Listen to me. Usually when someone serves me a design portfolio, it's raw, chaotic, and an absolute dog’s dinner. But Kier? The typography is crisp, the 60fps motion is seasoned to perfection, and he didn't even yell back when I asked for a 4th revision. Finally, some good f***ing UI.”
+              </blockquote>
+              <div class="testimonial-card__author">
+                <img src="assets/img/testimonial-ramsay.jpg" alt="Gordon Ramsay" class="author-img">
+                <div>
+                  <h4 class="author-name">Gordon Ramsay</h4>
+                  <span class="author-role">Multi-Michelin Star Chef // Certified Critic</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- 02: Steve Jobs -->
+            <article class="swiper-slide testimonial-card glass-card tilt-card">
+              <div class="testimonial-card__top">
+                <div class="stars">
+                  <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>
+                </div>
+                <span class="testimonial-card__rating">5.0 / 5.0</span>
+              </div>
+              <blockquote class="testimonial-card__quote">
+                “Most people think design is how something looks. It’s not. It’s how it works. Kier spent two hours obsessing over the corner radius of a single button until it felt like licking glass. He is stubborn, refuses to ship mediocrity, and won’t compromise on details. I respect that.”
+              </blockquote>
+              <div class="testimonial-card__author">
+                <img src="assets/img/testimonial-jobs.jpg" alt="Steve Jobs" class="author-img">
+                <div>
+                  <h4 class="author-name">Steve Jobs</h4>
+                  <span class="author-role">Co-Founder, Apple // Design Purist</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- 03: Hideo Kojima -->
+            <article class="swiper-slide testimonial-card glass-card tilt-card">
+              <div class="testimonial-card__top">
+                <div class="stars">
+                  <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>
+                </div>
+                <span class="testimonial-card__rating">5.0 / 5.0</span>
+              </div>
+              <blockquote class="testimonial-card__quote">
+                “A portfolio directed by Kier Benedict. Produced by Kier Benedict. Pixel cat companion by Kier Benedict. 70% of my body is made of movies, and the remaining 30% is spent admiring this 3D coverflow. Truly the world’s first Strand-type portfolio experience.”
+              </blockquote>
+              <div class="testimonial-card__author">
+                <img src="assets/img/testimonial-kojima.jpg" alt="Hideo Kojima" class="author-img">
+                <div>
+                  <h4 class="author-name">Hideo Kojima</h4>
+                  <span class="author-role">Game Director // Kojima Productions</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- 04: Snoop Dogg -->
+            <article class="swiper-slide testimonial-card glass-card tilt-card">
+              <div class="testimonial-card__top">
+                <div class="stars">
+                  <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>
+                </div>
+                <span class="testimonial-card__rating">5.0 / 5.0</span>
+              </div>
+              <blockquote class="testimonial-card__quote">
+                “I told nephew to lay down some smooth visuals, and he delivered neon mint accents so fresh it felt like cruising down Long Beach on a Sunday morning. No cap, that 8-bit cat alone fixed my whole vibe. Keep it 100, nephew’s got serious taste.”
+              </blockquote>
+              <div class="testimonial-card__author">
+                <img src="assets/img/testimonial-snoop.jpg" alt="Snoop Dogg" class="author-img">
+                <div>
+                  <h4 class="author-name">Snoop Dogg</h4>
+                  <span class="author-role">Cultural Icon // High-Vibe Curator</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- 05: Ryan Reynolds -->
+            <article class="swiper-slide testimonial-card glass-card tilt-card">
+              <div class="testimonial-card__top">
+                <div class="stars">
+                  <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>
+                </div>
+                <span class="testimonial-card__rating">5.0 / 5.0</span>
+              </div>
+              <blockquote class="testimonial-card__quote">
+                “I literally just asked for a simple portfolio layout. Kier came back with an interactive 8-bit cat that purrs when petted, custom physics, and a playable arcade game. My marketing team has been playing Cat Dash for three straight days. We haven't sold a single gin bottle. 10/10.”
+              </blockquote>
+              <div class="testimonial-card__author">
+                <img src="assets/img/testimonial-reynolds.jpg" alt="Ryan Reynolds" class="author-img">
+                <div>
+                  <h4 class="author-name">Ryan Reynolds</h4>
+                  <span class="author-role">Actor // Maximum Effort Producer</span>
+                </div>
+              </div>
+            </article>
+
+          </div>
+          <div class="swiper-pagination testimonial__pagination"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONTACT TERMINAL: iOS Glass Form & Quick Actions -->
+    <section class="contact section" id="contact">
+      <div class="container">
+        
+        <div class="contact__grid">
+          
+          <!-- Left: Contact Details & Quick Copy -->
+          <div class="contact__meta">
+            <div class="hud-pill"><span class="story-chapter-num">Act 05</span> Transmission</div>
+            <h2 class="section__title">Let’s build something <span>memorable</span>.</h2>
+            <p class="contact__sub">
+              Have an upcoming product redesign, branding initiative, or creative project? Send a note or reach out directly.
+            </p>
+
+            <!-- Cat Cheer Bubble -->
+            <div class="contact__cat-bubble glass-card">
+              <div class="cat-bubble__avatar">
+                <img src="assets/img/favicon-smile.svg" alt="Happy cat">
+              </div>
+              <div class="cat-bubble__content">
+                <strong>Cat says:</strong>
+                <p>"Inbox is checked daily! Let's make cool things happen."</p>
+              </div>
+            </div>
+
+            <!-- Contact Quick Cards -->
+            <div class="contact__channels">
+              <button class="channel-card glass-card" id="copy-email-btn" type="button" title="Click to copy email address">
+                <div class="channel-card__icon"><i class="ri-mail-line"></i></div>
+                <div class="channel-card__info">
+                  <span class="channel-card__label">DIRECT EMAIL</span>
+                  <span class="channel-card__val" id="email-address-text">benedictkier3474@gmail.com</span>
+                </div>
+                <span class="channel-card__action" id="copy-status">Copy <i class="ri-file-copy-line"></i></span>
+              </button>
+
+              <div class="channel-card glass-card">
+                <div class="channel-card__icon"><i class="ri-map-pin-line"></i></div>
+                <div class="channel-card__info">
+                  <span class="channel-card__label">BASE LOCATION</span>
+                  <span class="channel-card__val">Manila, Philippines (GMT+8)</span>
+                </div>
+                <span class="channel-card__action">Remote OK</span>
+              </div>
+            </div>
+
+            <!-- Social Links -->
+            <div class="contact__socials">
+              <a href="https://github.com/noobmasterrr690-lang" target="_blank" rel="noopener" class="social-pill" aria-label="GitHub">
+                <i class="ri-github-line"></i>
+                <span>GitHub</span>
+              </a>
+              <a href="https://web.facebook.com/wtfwtftwctfwhahahah.okhshsh/" target="_blank" rel="noopener" class="social-pill" aria-label="Facebook">
+                <i class="ri-facebook-line"></i>
+                <span>Facebook</span>
+              </a>
+              <a href="https://www.instagram.com/solo.c_c" target="_blank" rel="noopener" class="social-pill" aria-label="Instagram">
+                <i class="ri-instagram-line"></i>
+                <span>Instagram</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right: Sleek iOS Glass Form -->
+          <div class="contact__form-panel glass-panel">
+            <form class="contact__form" id="contact-form" action="https://formsubmit.co/benedictkier3474@gmail.com" method="POST">
+              <!-- FormSubmit Configuration -->
+              <input type="hidden" name="_captcha" value="false">
+              <input type="hidden" name="_template" value="table">
+              <input type="hidden" name="_subject" value="New Portfolio Inquiry from Website">
+
+              <div class="form-group">
+                <label for="name">Your Name</label>
+                <div class="input-wrapper">
+                  <i class="ri-user-line"></i>
+                  <input type="text" id="name" name="name" placeholder="Alex Morgan" required autocomplete="name">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <div class="input-wrapper">
+                  <i class="ri-at-line"></i>
+                  <input type="email" id="email" name="email" placeholder="alex@company.com" required autocomplete="email">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="service-select">Project Interest</label>
+                <div class="input-wrapper select-wrapper">
+                  <i class="ri-sparkling-line"></i>
+                  <select id="service-select" name="service">
+                    <option value="UI/UX & Product Design">UI/UX &amp; Product Design</option>
+                    <option value="Brand Identity & Design Systems">Brand Identity &amp; Design Systems</option>
+                    <option value="Illustration & Pixel Art">Illustration &amp; Pixel Art</option>
+                    <option value="Motion Graphics & Video">Motion Graphics &amp; Video</option>
+                    <option value="Full Project / Other">Full Creative Direction / Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="message">Project Overview</label>
+                <div class="input-wrapper">
+                  <i class="ri-chat-1-line input-icon--top"></i>
+                  <textarea id="message" name="message" rows="4" placeholder="Tell me about your timeline, goals, and vision..." required></textarea>
+                </div>
+              </div>
+
+              <button class="btn btn--primary btn--submit tilt-button" type="submit" id="contact-submit-btn">
+                <span>Dispatch Message</span>
+                <i class="ri-send-plane-fill"></i>
+              </button>
+              
+              <p class="contact__message" id="contact-message" aria-live="polite"></p>
+
+              <div class="direct-mail-note">
+                <span>Prefer using your mail client?</span>
+                <a href="mailto:benedictkier3474@gmail.com?subject=Portfolio%20Inquiry%20from%20Website" id="direct-mailto-link">Email directly ↗</a>
+              </div>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Sleek Dark Footer -->
+  <footer class="footer">
+    <div class="footer__container container">
+      <div class="footer__top">
+        <a href="#home" class="footer__brand">
+          <img src="assets/img/favicon.svg" alt="" class="footer__cat-icon">
+          <span>solo.c</span>
+        </a>
+        <div class="footer__links">
+          <a href="#home">Home</a>
+          <a href="#work">Works</a>
+          <a href="#services">Services</a>
+          <a href="#skills">Skills</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+          <a href="game.html">Cat Dash Arcade</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">&#169; 2026 solo.c. Crafted with care, pixels &amp; purrs.</p>
+        <div class="footer__meta-chips">
+          <span>Spotify/Netflix/iOS Inspired UI</span>
+          <span>60 FPS Motion</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Story Companion HUD with Interactive Walking Cat & Live Chapter Lore -->
+  <aside class="scroll-companion" id="scroll-companion" aria-label="Story progress and cat companion">
+    <div class="scroll-companion__rail">
+      <div class="scroll-companion__fill" id="scroll-progress-fill"></div>
+      
+      <!-- Chapter Milestone Pips on the Rail -->
+      <div class="scroll-companion__pips" aria-hidden="true">
+        <span class="chapter-pip active" data-target="home" title="Prologue: Player 01"></span>
+        <span class="chapter-pip" data-target="work" title="Act 01: Creations"></span>
+        <span class="chapter-pip" data-target="services" title="Act 02: Atelier"></span>
+        <span class="chapter-pip" data-target="skills" title="Act 03: Arsenal"></span>
+        <span class="chapter-pip" data-target="about" title="Act 04: Manifesto"></span>
+        <span class="chapter-pip" data-target="contact" title="Act 05: Transmission"></span>
+      </div>
+
+      <!-- Walking Cat with Dynamic Story Speech Bubble -->
+      <div class="scroll-companion__cat-wrapper" id="scroll-cat" title="Click to talk to your companion!">
+        <div class="scroll-companion__bubble" id="scroll-bubble">
+          <span class="bubble-text" id="bubble-text">Let's explore!</span>
+        </div>
+        <img src="assets/img/favicon.svg" alt="Story companion cat" class="scroll-cat__img">
+      </div>
+    </div>
+    <span class="scroll-companion__pct" id="scroll-pct-display">00%</span>
+  </aside>
+
+  <!-- Back to Top Button -->
+  <button class="scrollup" id="scroll-up" aria-label="Scroll back to top">
+    <i class="ri-arrow-up-line"></i>
+  </button>
+
+  <!-- External Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollReveal.js/4.0.9/scrollreveal.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+  
+  <!-- Main Interactive Engine -->
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+# Dependencies & Build Artefacts
+node_modules/
+.netlify/
+
+# Local Dev & Agent Workspace Metadata
+.agents/
+.aider-desk/
+.taste-skill/
+.vscode/
+skills-lock.json
+
+# Old Portfolio Archive
+kier port/
+
+# OS specific files
+Thumbs.db
+.DS_Store
+*.log

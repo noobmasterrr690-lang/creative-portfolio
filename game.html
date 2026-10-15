@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/game.css">
+  <title>Cat Dash | solo.c</title>
+</head>
+<body>
+  <main class="game-shell">
+    <a class="back-link" href="index.html">← Back to portfolio</a>
+    <section class="game-card">
+      <div class="game-heading">
+        <div>
+          <p class="eyebrow">SOLO.C ARCADE</p>
+          <h1>Cat Dash</h1>
+          <p>Press <strong>Space</strong> or click to flap. Reach <strong>100</strong> points.</p>
+        </div>
+        <div class="score-box">SCORE <strong id="score">0</strong><span>/ 100</span></div>
+      </div>
+      <div class="game-stage">
+        <canvas id="game-canvas" width="760" height="480" aria-label="Cat Dash game"></canvas>
+        <div class="game-overlay" id="game-overlay">
+          <h2 id="overlay-title">Ready?</h2>
+          <p id="overlay-message">Click or press Space to start.</p>
+          <button id="game-action" type="button">Start game</button>
+        </div>
+      </div>
+      <p class="game-hint">Avoid the green gates. One point per gate. The first to 100 wins.</p>
+    </section>
+  </main>
+  <script src="assets/js/game.js"></script>
+</body>
+</html>

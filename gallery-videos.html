@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Gallery | solo.c</title>
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/gallery.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css">
+</head>
+<body>
+  <main class="main">
+    <div class="container">
+      <div class="topbar">
+        <a href="index.html" class="brand">solo.c</a>
+        <a href="index.html#samples" class="back-link">← Back to portfolio</a>
+      </div>
+
+      <header class="page-header">
+        <h1>Video &amp; Motion Gallery</h1>
+        <p>Viral reels, cinematic festival documentaries, and campus storytelling produced and edited for The Mindanao Tech.</p>
+      </header>
+
+      <!-- Persistent View Mode Controls (Always visible in both views) -->
+      <div class="gallery-view-controls">
+        <div class="view-toggle-pill" role="tablist" aria-label="Gallery View Mode">
+          <button class="view-toggle-btn active" id="view-btn-carousel" type="button" role="tab" aria-selected="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M4 6h16v12H4z M2 8h2v8H2z M20 8h2v8h-2z"/></svg>
+            <span>3D Carousel</span>
+          </button>
+          <button class="view-toggle-btn" id="view-btn-grid" type="button" role="tab" aria-selected="false">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M3 3h8v8H3zm10 0h8v8h-8zM3 13h8v8H3zm10 0h8v8h-8z"/></svg>
+            <span>Grid View</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Gallery Views Container with Fluid Crossfade Transition -->
+      <div class="gallery-views-container">
+        <!-- 3D Glassmorphism Coverflow Carousel -->
+        <section class="glass-carousel-section view-active" id="glass-carousel-section" aria-label="3D Featured Carousel">
+          <div class="glass-carousel" id="glass-carousel">
+            <div class="glass-carousel__stage" id="carousel-stage">
+              <div class="glass-carousel__track" id="carousel-track">
+                <!-- Dynamically populated by gallery.js -->
+              </div>
+            </div>
+
+          <!-- Carousel Navigation Arrows -->
+          <div class="carousel-nav-arrows" id="carousel-nav-arrows">
+            <button class="shelf-nav-btn" id="pill-prev-btn" type="button" aria-label="Previous card">
+              <i class="ri-arrow-left-s-line"></i>
+            </button>
+            <button class="shelf-nav-btn" id="pill-next-btn" type="button" aria-label="Next card">
+              <i class="ri-arrow-right-s-line"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="gallery-grid view-hidden" aria-label="Video gallery">
+
+        <!-- 01: Main Cover - PASIKLABAN HIGHLIGHTS (159K Views) -->
+        <article class="gallery-item gallery-item--cover gallery-item--video" data-gallery-item data-title="Pasiklaban Highlights: Relive the Season" data-text="Pasiklaban 2025 Highlights: Relive the Season Once More — Premiered on The Mindanao Tech (159K views, 5.5K reactions). High-energy stage cinematography capturing electrifying theatrical performances, synchronized strobe sequences, and explosive crowd energy." data-video-url="https://www.facebook.com/reel/1740043854065347/" tabindex="0">
+          <a href="https://www.facebook.com/reel/1740043854065347/" target="_blank" rel="noopener noreferrer" class="video-preview-wrap" aria-label="Watch Pasiklaban Highlights on Facebook">
+            <img src="assets/img/videomain.jpg" alt="Pasiklaban Highlights: Relive the Season" loading="lazy">
+            <div class="video-play-btn" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="video-preview-overlay">
+              <span class="video-badge-pill video-badge-pill--accent">★ Main Cover</span>
+              <span class="video-badge-pill video-badge-pill--views">159K Views</span>
+            </div>
+          </a>
+          <div class="gallery-item__content">
+            <div class="gallery-item__meta">
+              <span class="gallery-badge gallery-badge--cover">★ Main Cover</span>
+              <span class="gallery-badge gallery-badge--tag">159K Views</span>
+              <span class="gallery-badge">Highlights</span>
+            </div>
+            <h3>Pasiklaban Highlights: Relive the Season</h3>
+            <p>Cinematic festival recap packed with dynamic stage lighting, roaring crowd energy, and synchronized musical montage.</p>
+            <div class="gallery-item__actions">
+              <a href="https://www.facebook.com/reel/1740043854065347/" target="_blank" rel="noopener noreferrer" class="gallery-action-link">
+                <span>Watch on Facebook</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+              <span class="gallery-badge" style="font-size:0.65rem;">The Mindanao Tech</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 02: PASIKLABAN FROM ABOVE (104K Views) -->
+        <article class="gallery-item gallery-item--video" data-gallery-item data-title="Pasiklaban From Above" data-text="Pasiklaban From Above — Shot and edited for The Mindanao Tech (104K views, 4.8K reactions). Sweeping bird's-eye drone sequences and high-altitude perspective revealing the vast expanse of festival grounds, outdoor stages, and packed university arenas." data-video-url="https://www.facebook.com/reel/4546250098994184/" tabindex="0">
+          <a href="https://www.facebook.com/reel/4546250098994184/" target="_blank" rel="noopener noreferrer" class="video-preview-wrap" aria-label="Watch Pasiklaban From Above on Facebook">
+            <img src="assets/img/video-thumb-2-above.jpg" alt="Pasiklaban From Above" loading="lazy">
+            <div class="video-play-btn" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="video-preview-overlay">
+              <span class="video-badge-pill">Aerial Drone</span>
+              <span class="video-badge-pill video-badge-pill--views">104K Views</span>
+            </div>
+          </a>
+          <div class="gallery-item__content">
+            <div class="gallery-item__meta">
+              <span class="gallery-badge gallery-badge--tag">104K Views</span>
+              <span class="gallery-badge">Aerial / Drone</span>
+            </div>
+            <h3>Pasiklaban From Above</h3>
+            <p>Bird's-eye drone cinematography revealing the monumental scale of university grounds and festival crowds.</p>
+            <div class="gallery-item__actions">
+              <a href="https://www.facebook.com/reel/4546250098994184/" target="_blank" rel="noopener noreferrer" class="gallery-action-link">
+                <span>Watch on Facebook</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+              <span class="gallery-badge" style="font-size:0.65rem;">The Mindanao Tech</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 03: USM BRAND NEW DAY: A MONTH IN CAMPUS (126K Views) -->
+        <article class="gallery-item gallery-item--video" data-gallery-item data-title="USM Brand New Day: A Month in Campus" data-text="USM Brand New Day: A Month in Campus — Created for The Mindanao Tech (126K views, 3.9K reactions). An uplifting, documentary-style montage capturing the authentic heart and soul of university life, student camaraderie, and golden-hour campus scenery." data-video-url="https://www.facebook.com/reel/1935455211193468/" tabindex="0">
+          <a href="https://www.facebook.com/reel/1935455211193468/" target="_blank" rel="noopener noreferrer" class="video-preview-wrap" aria-label="Watch USM Brand New Day on Facebook">
+            <img src="assets/img/video-thumb-3-campus.jpg" alt="USM Brand New Day: A Month in Campus" loading="lazy">
+            <div class="video-play-btn" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="video-preview-overlay">
+              <span class="video-badge-pill">Campus Life</span>
+              <span class="video-badge-pill video-badge-pill--views">126K Views</span>
+            </div>
+          </a>
+          <div class="gallery-item__content">
+            <div class="gallery-item__meta">
+              <span class="gallery-badge gallery-badge--tag">126K Views</span>
+              <span class="gallery-badge">Campus Life</span>
+            </div>
+            <h3>USM Brand New Day: A Month in Campus</h3>
+            <p>Heartfelt student life montage capturing morning walks, classroom laughs, and authentic collegiate rhythm.</p>
+            <div class="gallery-item__actions">
+              <a href="https://www.facebook.com/reel/1935455211193468/" target="_blank" rel="noopener noreferrer" class="gallery-action-link">
+                <span>Watch on Facebook</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+              <span class="gallery-badge" style="font-size:0.65rem;">The Mindanao Tech</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 04: USM GROUNDS AT NIGHT: TRADE FAIR GLOW (117K Views) -->
+        <article class="gallery-item gallery-item--video" data-gallery-item data-title="USM Grounds at Night: Trade Fair Glow" data-text="USM Grounds at Night: Trade Fair Glow — Broadcast on The Mindanao Tech (117K views, 2.5K reactions). Atmospheric nocturnal cinematography exploring the radiant neon stalls, bustling artisan food lanes, and festive carnival glow across the university evening fair." data-video-url="https://www.facebook.com/mintech1955/videos/1854618398821488/" tabindex="0">
+          <a href="https://www.facebook.com/mintech1955/videos/1854618398821488/" target="_blank" rel="noopener noreferrer" class="video-preview-wrap" aria-label="Watch USM Grounds at Night on Facebook">
+            <img src="assets/img/video-thumb-5-nightfair.jpg" alt="USM Grounds at Night: Trade Fair Glow" loading="lazy">
+            <div class="video-play-btn" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="video-preview-overlay">
+              <span class="video-badge-pill">Night Fair</span>
+              <span class="video-badge-pill video-badge-pill--views">117K Views</span>
+            </div>
+          </a>
+          <div class="gallery-item__content">
+            <div class="gallery-item__meta">
+              <span class="gallery-badge gallery-badge--tag">117K Views</span>
+              <span class="gallery-badge">Night Fair</span>
+            </div>
+            <h3>USM Grounds at Night: Trade Fair Glow</h3>
+            <p>Atmospheric nocturnal videography through glowing neon stalls, night markets, and carnival lights.</p>
+            <div class="gallery-item__actions">
+              <a href="https://www.facebook.com/mintech1955/videos/1854618398821488/" target="_blank" rel="noopener noreferrer" class="gallery-action-link">
+                <span>Watch on Facebook</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+              <span class="gallery-badge" style="font-size:0.65rem;">The Mindanao Tech</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 05: PASIKLABAN: A STORY IN EVERY MOMENT -->
+        <article class="gallery-item gallery-item--video" data-gallery-item data-title="Pasiklaban: A Story in Every Moment" data-text="Pasiklaban 2026: A Story in Every Moment — Produced for The Mindanao Tech. A character-driven short reel focusing on candid backstage anticipation, genuine performer bonds, and the quiet, powerful human moments behind the spectacle." data-video-url="https://www.facebook.com/reel/1739148517187889/" tabindex="0">
+          <a href="https://www.facebook.com/reel/1739148517187889/" target="_blank" rel="noopener noreferrer" class="video-preview-wrap" aria-label="Watch Pasiklaban Story in Every Moment on Facebook">
+            <img src="assets/img/video-thumb-1-story.jpg" alt="Pasiklaban: A Story in Every Moment" loading="lazy">
+            <div class="video-play-btn" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="video-preview-overlay">
+              <span class="video-badge-pill">Narrative Reel</span>
+              <span class="video-badge-pill video-badge-pill--accent">Documentary</span>
+            </div>
+          </a>
+          <div class="gallery-item__content">
+            <div class="gallery-item__meta">
+              <span class="gallery-badge">Narrative Reel</span>
+              <span class="gallery-badge gallery-badge--tag">Documentary</span>
+            </div>
+            <h3>Pasiklaban: A Story in Every Moment</h3>
+            <p>Intimate, moment-driven storytelling highlighting backstage anticipation, candid joy, and human bonds.</p>
+            <div class="gallery-item__actions">
+              <a href="https://www.facebook.com/reel/1739148517187889/" target="_blank" rel="noopener noreferrer" class="gallery-action-link">
+                <span>Watch on Facebook</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+              <span class="gallery-badge" style="font-size:0.65rem;">The Mindanao Tech</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 06: UNILYMPICS: CHAMPIONS FORGED THROUGH HARD WORK (29K Views) -->
+        <article class="gallery-item gallery-item--video" data-gallery-item data-title="UNILYMPICS: Champions Forged Through Hard Work" data-text="UNILYMPICS 2026: Champions Forged Through Hard Work — Produced for The Mindanao Tech (29K views). Fast-paced, hard-hitting sports hype edit highlighting student athletes' grit, court rallies, peak adrenaline, and championship celebrations." data-video-url="https://www.facebook.com/reel/1478491370736313/" tabindex="0">
+          <a href="https://www.facebook.com/reel/1478491370736313/" target="_blank" rel="noopener noreferrer" class="video-preview-wrap" aria-label="Watch UNILYMPICS on Facebook">
+            <img src="assets/img/video-thumb-6-unilympics.jpg" alt="UNILYMPICS: Champions Forged Through Hard Work" loading="lazy">
+            <div class="video-play-btn" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="video-preview-overlay">
+              <span class="video-badge-pill">Sports Hype</span>
+              <span class="video-badge-pill video-badge-pill--views">29K Views</span>
+            </div>
+          </a>
+          <div class="gallery-item__content">
+            <div class="gallery-item__meta">
+              <span class="gallery-badge gallery-badge--tag">29K Views</span>
+              <span class="gallery-badge">Sports Hype</span>
+            </div>
+            <h3>UNILYMPICS: Champions Forged Through Hard Work</h3>
+            <p>High-octane athletic montage showcasing court intensity, hard-earned sweat, and champion victories.</p>
+            <div class="gallery-item__actions">
+              <a href="https://www.facebook.com/reel/1478491370736313/" target="_blank" rel="noopener noreferrer" class="gallery-action-link">
+                <span>Watch on Facebook</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+              <span class="gallery-badge" style="font-size:0.65rem;">The Mindanao Tech</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Grid View Navigation Arrows -->
+        <div class="carousel-nav-arrows grid-nav-arrows" id="grid-nav-arrows">
+          <button class="shelf-nav-btn" id="grid-prev-btn" type="button" aria-label="Previous card">
+            <i class="ri-arrow-left-s-line"></i>
+          </button>
+          <button class="shelf-nav-btn" id="grid-next-btn" type="button" aria-label="Next card">
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
+        </div>
+      </section>
+      </div>
+    </div>
+  </main>
+
+  <div class="gallery-lightbox" id="gallery-lightbox" aria-hidden="true">
+    <button class="gallery-lightbox__close" id="lightbox-close" aria-label="Close fullscreen view">×</button>
+    <div class="gallery-lightbox__dialog">
+      <div id="lightbox-video-wrap" class="lightbox-video-preview" style="display:none;">
+        <img id="lightbox-video-poster" alt="" class="lightbox-video-poster">
+        <a id="lightbox-video-play-btn" href="#" target="_blank" rel="noopener noreferrer" class="lightbox-play-overlay" title="Watch on Facebook">
+          <div class="video-play-btn video-play-btn--lg">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <span class="lightbox-play-label">Play Full HD Video on Facebook ↗</span>
+        </a>
+      </div>
+      <img id="lightbox-image" alt="" style="display:none;">
+      <video id="lightbox-video" controls autoplay playsinline style="display:none;"></video>
+      <div class="gallery-lightbox__caption">
+        <h3 id="lightbox-title">Gallery item</h3>
+        <p id="lightbox-text"></p>
+        <div class="lightbox-actions" id="lightbox-actions" style="display:none; margin-top:1.25rem;">
+          <a id="lightbox-external-btn" href="#" target="_blank" rel="noopener noreferrer" class="btn-watch-fb">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+              <path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/>
+            </svg>
+            Watch Full Reel on Facebook ↗
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/gallery.js"></script>
+</body>
+</html>

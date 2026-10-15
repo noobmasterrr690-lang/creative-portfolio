@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Graphic Gallery | solo.c</title>
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/gallery.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css">
+</head>
+<body>
+  <main class="main">
+    <div class="container">
+      <div class="topbar">
+        <a href="index.html" class="brand">solo.c</a>
+        <a href="index.html#samples" class="back-link">← Back to portfolio</a>
+      </div>
+
+      <header class="page-header">
+        <h1>Graphic Design Gallery</h1>
+        <p>Typography, posters, and branding systems built with clear visual direction.</p>
+      </header>
+
+      <!-- Persistent View Mode Controls (Always visible in both views) -->
+      <div class="gallery-view-controls">
+        <div class="view-toggle-pill" role="tablist" aria-label="Gallery View Mode">
+          <button class="view-toggle-btn active" id="view-btn-carousel" type="button" role="tab" aria-selected="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M4 6h16v12H4z M2 8h2v8H2z M20 8h2v8h-2z"/></svg>
+            <span>3D Carousel</span>
+          </button>
+          <button class="view-toggle-btn" id="view-btn-grid" type="button" role="tab" aria-selected="false">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M3 3h8v8H3zm10 0h8v8h-8zM3 13h8v8H3zm10 0h8v8h-8z"/></svg>
+            <span>Grid View</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Gallery Views Container with Fluid Crossfade Transition -->
+      <div class="gallery-views-container">
+        <!-- 3D Glassmorphism Coverflow Carousel -->
+        <section class="glass-carousel-section view-active" id="glass-carousel-section" aria-label="3D Featured Carousel">
+          <div class="glass-carousel" id="glass-carousel">
+            <div class="glass-carousel__stage" id="carousel-stage">
+              <div class="glass-carousel__track" id="carousel-track">
+                <!-- Dynamically populated by gallery.js -->
+              </div>
+            </div>
+
+          <!-- Carousel Navigation Arrows -->
+          <div class="carousel-nav-arrows" id="carousel-nav-arrows">
+            <button class="shelf-nav-btn" id="pill-prev-btn" type="button" aria-label="Previous card">
+              <i class="ri-arrow-left-s-line"></i>
+            </button>
+            <button class="shelf-nav-btn" id="pill-next-btn" type="button" aria-label="Next card">
+              <i class="ri-arrow-right-s-line"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="gallery-grid view-hidden" aria-label="Graphic gallery">
+        <!-- 01: Main Cover - PAUNAHAI -->
+        <article class="gallery-item gallery-item--cover" data-gallery-item data-title="PAUNAHAI: Game On! All Night" data-text="The Expedition: Rise of the Digital Frontiers — An ethereal retro-futuristic event key visual blending celestial constellation cartography, radiant summit expeditions, and neon prism aesthetics. Symbolizing collective perseverance, digital exploration, and youth-driven momentum under the starry night sky." tabindex="0">
+          <img src="assets/img/paunahi.jpg" alt="Paunahi: Game On! All Night event key visual and poster design">
+          <div class="gallery-item__content">
+            <div class="gallery-item__meta">
+              <span class="gallery-badge gallery-badge--cover">★ Main Cover</span>
+              <span class="gallery-badge gallery-badge--tag">Key Visual</span>
+            </div>
+            <h3>PAUNAHAI: Game On! All Night</h3>
+            <p>Cosmic event key visual and promotional poster featuring constellation cartography, glowing mountain ascents, and celestial typography.</p>
+          </div>
+        </article>
+
+        <!-- 02: SPECTRUM VISUALS — LUCENT -->
+        <article class="gallery-item" data-gallery-item data-title="Spectrum Visuals: Lucent — See Beyond" data-text="Comprehensive brand identity guidelines and visual system for Notre Dame of Marbel University's Spectrum Visuals. Stepping into a new era of clarity with an iridescent chrome 'S' monogram, Druk Wide and Neue Haas Grotesk typography, and frosted glassmorphic editorial layouts." tabindex="0">
+          <img src="assets/img/spectrum-lucent.png" alt="Spectrum Visuals Lucent rebrand identity manual and style guide">
+          <div class="gallery-item__content">
+            <div class="gallery-item__meta">
+              <span class="gallery-badge">Visual Identity</span>
+              <span class="gallery-badge gallery-badge--tag">Style Guide</span>
+            </div>
+            <h3>Spectrum: Lucent Rebrand</h3>
+            <p>Luminous brand identity manual pairing prismatic chrome monograms, glassmorphic UI cards, and clean editorial typography.</p>
+          </div>
+        </article>
+
+        <!-- 03: SALIGAN: IN MOTION -->
+        <article class="gallery-item" data-gallery-item data-title="SALIGAN: In Motion — 70 Years of Excellence" data-text="Institutional brand identity guidelines and logo architecture for San Pedro College's 70th milestone. The emblem deconstructs a kinetic running figure forming an abstract 'S', embodying vision, student advocacy, and momentum across dual-tone gradient palettes." tabindex="0">
+          <img src="assets/img/saligan-in-motion.jpg" alt="Saligan In Motion 70th anniversary institutional brand guide and logo anatomy">
+          <div class="gallery-item__content">
+            <div class="gallery-item__meta">
+              <span class="gallery-badge">Institutional</span>
+              <span class="gallery-badge gallery-badge--tag">Logo System</span>
+            </div>
+            <h3>SALIGAN: In Motion</h3>
+            <p>Institutional visual identity and logo anatomy engineered for San Pedro College's 70th anniversary, expressing momentum and advocacy.</p>
+          </div>
+        </article>
+
+        <!-- 04: BLISS THEATRICAL POSTER -->
+        <article class="gallery-item" data-gallery-item data-title="BLISS — Theatrical Key Art Poster" data-text="Psychological thriller and mystery theatrical one-sheet. Built with intense chiaroscuro contrast, fractured porcelain facial textures, tactile ink-inscribed hands, and an inverted mirrored composition conveying sensory confinement and distortion." tabindex="0">
+          <img src="assets/img/bliss-poster.png" alt="BLISS psychological horror movie theatrical one-sheet poster">
+          <div class="gallery-item__content">
+            <div class="gallery-item__meta">
+              <span class="gallery-badge">Film Key Art</span>
+              <span class="gallery-badge gallery-badge--tag">Theatrical Poster</span>
+            </div>
+            <h3>BLISS // Key Art Poster</h3>
+            <p>Chilling psychological thriller one-sheet featuring cracked portraiture, tactile handwritten scribbles, and mirrored reflections.</p>
+          </div>
+        </article>
+
+        <!-- 05: KILL BILL 2077 -->
+        <article class="gallery-item" data-gallery-item data-title="Kill Bill 2077 — Neo-Noir Concept Poster" data-text="A retro-futuristic cyberpunk concept reimagining of the iconic revenge saga. Features rain-slicked neon alleyways, glowing amber energy katana effects, 35mm film grain, and glowing 80s arcade and Japanese typography." tabindex="0">
+          <img src="assets/img/kill-bill-2077.jpg" alt="Kill Bill 2077 cyberpunk concept film poster with neon katana">
+          <div class="gallery-item__content">
+            <div class="gallery-item__meta">
+              <span class="gallery-badge">Concept Art</span>
+              <span class="gallery-badge gallery-badge--tag">Cyberpunk</span>
+            </div>
+            <h3>Kill Bill 2077</h3>
+            <p>Retro-futuristic concept key art blending rain-drenched cyberpunk alleyways, neon katana energy glow, and Japanese sci-fi typography.</p>
+          </div>
+        </article>
+
+        <!-- 06: PECULIAR — MIXED MEDIA COLLAGE -->
+        <article class="gallery-item" data-gallery-item data-title="PECULIAR — Mixed-Media Surrealist Collage" data-text="PECULIAR — A vintage surrealist photomontage and mixed-media poster by Kier Benedict. Centers on a retro instant camera emitting a vibrant beam of cutout ransom typography and figures, layered over alpine mountains, crowd photography, vintage Coca-Cola motifs, and sunny beachfront scenes." tabindex="0">
+          <img src="assets/img/peculiar-collage.jpg" alt="Peculiar mixed-media surrealist poster collage by Kier Benedict">
+          <div class="gallery-item__content">
+            <div class="gallery-item__meta">
+              <span class="gallery-badge">Mixed Media</span>
+              <span class="gallery-badge gallery-badge--tag">Surrealism</span>
+            </div>
+            <h3>PECULIAR // Surreal Collage</h3>
+            <p>Vintage mixed-media poster fusing camera flash typography beams, newsprint clippings, alpine peaks, and coastal crowds.</p>
+          </div>
+        </article>
+
+        <!-- 07: COKE MARS EXPEDITION -->
+        <article class="gallery-item" data-gallery-item data-title="Things Go Better With Coke — Mars Expedition" data-text="Things Go Better With Coke — A retro-futuristic surrealist space collage by Solo. Depicts a young explorer purchasing a soda from a vintage 1950s Coca-Cola bottle vending machine standing on the red Martian terrain beneath an iconic Earth-rise in the starry cosmos." tabindex="0">
+          <img src="assets/img/coke-mars-collage.jpg" alt="Things Go Better With Coke retro surrealist Mars vending machine collage by Solo">
+          <div class="gallery-item__content">
+            <div class="gallery-item__meta">
+              <span class="gallery-badge">Retro Sci-Fi</span>
+              <span class="gallery-badge gallery-badge--tag">Concept Art</span>
+            </div>
+            <h3>Things Go Better With Coke</h3>
+            <p>Surreal retro-space collage depicting a classic vintage vending machine on the red plains of Mars beneath an Earth-rise.</p>
+          </div>
+        </article>
+
+        <!-- 08: PESO STUDENT TRACKER UI -->
+        <article class="gallery-item" data-gallery-item data-title="PESO — Student Budget Tracker (UI / UX Design)" data-text="Make Every Peso Count — High-contrast dark-mode SaaS landing page and web application design for PESO, an intuitive student personal finance tracker. Features neon lime interactive CTA buttons, budget alert telemetry, and an 8-bit cube robot companion mascot." tabindex="0">
+          <img src="assets/img/peso-ui-design.png" alt="PESO student budget tracker landing page and portal UI UX design">
+          <div class="gallery-item__content">
+            <div class="gallery-item__meta">
+              <span class="gallery-badge">UI / UX Design</span>
+              <span class="gallery-badge gallery-badge--tag">Web App</span>
+            </div>
+            <h3>PESO: Student Finance UI</h3>
+            <p>Dark-mode fintech web app interface featuring high-contrast neon accents, student budget telemetry, and an 8-bit mascot.</p>
+          </div>
+        </article>
+
+        <!-- 09: SEA OF CLOUDS -->
+        <article class="gallery-item" data-gallery-item data-title="Sea of Clouds? How Ironic... — Dreamscape Collage" data-text="Sea of Clouds? How Ironic... — A poetic vintage dreamscape photomontage by Solo. Mid-century sightseers along a scenic mountain overlook gaze upon an ocean of cumulus clouds beneath a solitary volcano peak, where giant humpback whales breach and swim across the sky." tabindex="0">
+          <img src="assets/img/sea-of-clouds-collage.jpg" alt="Sea of Clouds How Ironic surreal whale dreamscape collage by Solo">
+          <div class="gallery-item__content">
+            <div class="gallery-item__meta">
+              <span class="gallery-badge">Dreamscape</span>
+              <span class="gallery-badge gallery-badge--tag">Photomontage</span>
+            </div>
+            <h3>Sea of Clouds? How Ironic...</h3>
+            <p>Vintage dreamscape collage of observation deck sightseers watching giant humpback whales breach across a sea of cumulus clouds.</p>
+          </div>
+        </article>
+
+        <!-- 10: SOLO.C VISUAL ARCHIVE -->
+        <article class="gallery-item" data-gallery-item data-title="SOLO.C Visual Archive &amp; Feed Curation" data-text="SOLO.C Creative Archive — A curated portfolio grid showcasing multidisciplinary art direction across album art, neo-brutalist typography, retro-futuristic movie concepts (Matrix, Kill Bill), classical Greek statue treatments, Japanese woodblock posters, and surrealist editorial design." tabindex="0">
+          <img src="assets/img/creative-archive-grid.jpg" alt="SOLO.C creative direction visual archive and design feed curation">
+          <div class="gallery-item__content">
+            <div class="gallery-item__meta">
+              <span class="gallery-badge">Art Direction</span>
+              <span class="gallery-badge gallery-badge--tag">Visual Feed</span>
+            </div>
+            <h3>SOLO.C Visual Archive</h3>
+            <p>Curated 15-piece design archive featuring album art direction, Japanese woodblock posters, cyberpunk key art, and surreal collages.</p>
+          </div>
+        </article>
+
+        <!-- Grid View Navigation Arrows -->
+        <div class="carousel-nav-arrows grid-nav-arrows" id="grid-nav-arrows">
+          <button class="shelf-nav-btn" id="grid-prev-btn" type="button" aria-label="Previous card">
+            <i class="ri-arrow-left-s-line"></i>
+          </button>
+          <button class="shelf-nav-btn" id="grid-next-btn" type="button" aria-label="Next card">
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
+        </div>
+      </section>
+      </div>
+    </div>
+  </main>
+
+  <div class="gallery-lightbox" id="gallery-lightbox" aria-hidden="true">
+    <button class="gallery-lightbox__close" id="lightbox-close" aria-label="Close fullscreen view">×</button>
+    <div class="gallery-lightbox__dialog">
+      <img id="lightbox-image" src="" alt="Expanded gallery item">
+      <div class="gallery-lightbox__caption">
+        <h3 id="lightbox-title">Gallery item</h3>
+        <p id="lightbox-text"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/gallery.js"></script>
+</body>
+</html>

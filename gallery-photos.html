@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photo Gallery | solo.c</title>
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/gallery.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css">
+</head>
+<body>
+  <main class="main">
+    <div class="container">
+      <div class="topbar">
+        <a href="index.html" class="brand">solo.c</a>
+        <a href="index.html#samples" class="back-link">← Back to portfolio</a>
+      </div>
+
+      <header class="page-header">
+        <h1>Photo Gallery</h1>
+        <p>Street photography focused on honest moments, city rhythm, and everyday light.</p>
+      </header>
+
+      <!-- Persistent View Mode Controls (Always visible in both views) -->
+      <div class="gallery-view-controls">
+        <div class="view-toggle-pill" role="tablist" aria-label="Gallery View Mode">
+          <button class="view-toggle-btn active" id="view-btn-carousel" type="button" role="tab" aria-selected="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M4 6h16v12H4z M2 8h2v8H2z M20 8h2v8h-2z"/></svg>
+            <span>3D Carousel</span>
+          </button>
+          <button class="view-toggle-btn" id="view-btn-grid" type="button" role="tab" aria-selected="false">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M3 3h8v8H3zm10 0h8v8h-8zM3 13h8v8H3zm10 0h8v8h-8z"/></svg>
+            <span>Grid View</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Gallery Views Container with Fluid Crossfade Transition -->
+      <div class="gallery-views-container">
+        <!-- 3D Glassmorphism Coverflow Carousel -->
+        <section class="glass-carousel-section view-active" id="glass-carousel-section" aria-label="3D Featured Carousel">
+          <div class="glass-carousel" id="glass-carousel">
+            <div class="glass-carousel__stage" id="carousel-stage">
+              <div class="glass-carousel__track" id="carousel-track">
+                <!-- Dynamically populated by gallery.js -->
+              </div>
+            </div>
+
+          <!-- Carousel Navigation Arrows -->
+          <div class="carousel-nav-arrows" id="carousel-nav-arrows">
+            <button class="shelf-nav-btn" id="pill-prev-btn" type="button" aria-label="Previous card">
+              <i class="ri-arrow-left-s-line"></i>
+            </button>
+            <button class="shelf-nav-btn" id="pill-next-btn" type="button" aria-label="Next card">
+              <i class="ri-arrow-right-s-line"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="gallery-grid view-hidden" aria-label="Photo gallery">
+        <!-- 01: Main Cover - PHOTOMAIN -->
+        <article class="gallery-item gallery-item--cover" data-gallery-item data-title="Pensive Market Hours" data-text="Pensive Market Hours — Candid monochrome street documentary by Solo. Captured amidst the dense hum of a bustling market, a vendor rests her chin against her palm in quiet contemplation, naturally framed by the dark, fleeting silhouettes of passing pedestrians. A study in endurance, stillness, and everyday labor." tabindex="0">
+          <img src="assets/img/photomain.jpg" alt="Pensive Market Hours candid street portrait of vendor framed by pedestrians">
+          <div class="gallery-item__content">
+            <div class="gallery-item__meta">
+              <span class="gallery-badge gallery-badge--cover">★ Main Cover</span>
+              <span class="gallery-badge gallery-badge--tag">Documentary</span>
+            </div>
+            <h3>Pensive Market Hours</h3>
+            <p>High-contrast street portrait of a market vendor resting in contemplation, framed between passing urban silhouettes.</p>
+          </div>
+        </article>
+
+        <!-- 02: SHORELINE REFLECTION -->
+        <article class="gallery-item" data-gallery-item data-title="Echoes on Water — Shoreline Shadows" data-text="Echoes on Water — Abstract black and white street study exploring liquid motion and human form. Five figures standing along the shoreline are captured entirely through the rippling surface of dark water, transforming ordinary human silhouettes into fluid, expressive shapes suspended in motion." tabindex="0">
+          <img src="assets/img/shoreline-reflection.jpg" alt="Echoes on Water abstract monochrome reflection of five silhouettes">
+          <div class="gallery-item__content">
+            <div class="gallery-item__meta">
+              <span class="gallery-badge">Monochrome</span>
+              <span class="gallery-badge gallery-badge--tag">Reflection</span>
+            </div>
+            <h3>Echoes on Water</h3>
+            <p>Abstract monochrome study capturing the undulating water reflections of five figures along the shoreline.</p>
+          </div>
+        </article>
+
+        <!-- 03: SIDEWALK SALUTE -->
+        <article class="gallery-item" data-gallery-item data-title="The Sidewalk Salute" data-text="The Sidewalk Salute — A timeless, heartwarming documentary moment captured in the streets. Five young neighborhood boys stand side-by-side on the sidewalk, instinctively snapping to attention with earnest salutes and youthful grins toward an unseen procession, set against the authentic backdrop of everyday neighborhood life." tabindex="0">
+          <img src="assets/img/sidewalk-salute.jpg" alt="The Sidewalk Salute five young boys saluting in unison on the sidewalk">
+          <div class="gallery-item__content">
+            <div class="gallery-item__meta">
+              <span class="gallery-badge">Street Life</span>
+              <span class="gallery-badge gallery-badge--tag">Candid</span>
+            </div>
+            <h3>The Sidewalk Salute</h3>
+            <p>Heartwarming street capture of five young boys standing in a line along the sidewalk, raising simultaneous salutes.</p>
+          </div>
+        </article>
+
+        <!-- 04: DAVAO CROWD GATHERING -->
+        <article class="gallery-item" data-gallery-item data-title="Gathering in Davao — Public Spectacle" data-text="Gathering in Davao — High-contrast documentary photojournalism capturing a dense gathering of spectators and photojournalists perched on wooden scaffolds and barricades, watching a street event unfold against an industrial backdrop. A study in community gaze, patience, and urban texture." tabindex="0">
+          <img src="assets/img/davao-crowd-gathering.jpg" alt="Gathering in Davao spectators and photojournalists gathered at street event">
+          <div class="gallery-item__content">
+            <div class="gallery-item__meta">
+              <span class="gallery-badge">Photojournalism</span>
+              <span class="gallery-badge gallery-badge--tag">Davao City</span>
+            </div>
+            <h3>Gathering in Davao</h3>
+            <p>Wide documentary street frame capturing an expectant crowd, perched photographers, and the collective anticipation of a public spectacle.</p>
+          </div>
+        </article>
+
+        <!-- 05: NIGHT MARKET APERTURE -->
+        <article class="gallery-item" data-gallery-item data-title="Vignette of the Night Market" data-text="Vignette of the Night Market — Experimental optical street photography by Solo. Shot through a circular aperture element, isolating a solo vendor tending to her fruit and vegetable stall beneath a hanging incandescent bulb amidst deep nocturnal shadows and organic optical distortion." tabindex="0">
+          <img src="assets/img/night-market-aperture.jpg" alt="Vignette of the Night Market vendor illuminated under street lamp through circular lens aperture">
+          <div class="gallery-item__content">
+            <div class="gallery-item__meta">
+              <span class="gallery-badge">Night Street</span>
+              <span class="gallery-badge gallery-badge--tag">Experimental</span>
+            </div>
+            <h3>Vignette of the Night Market</h3>
+            <p>Atmospheric night street study framing a produce vendor under single-point tungsten lighting through a circular lens aperture.</p>
+          </div>
+        </article>
+
+        <!-- 06: PUDDLE SKY REFLECTION -->
+        <article class="gallery-item" data-gallery-item data-title="Skywalkers — Puddle Inversion" data-text="Skywalkers — Puddle Inversion — A playful and surreal exploration of perspective in street photography. By inverting the frame, a rain puddle on the asphalt transforms into a skyward portal, reflecting two young girls in patterned skirts walking as if stepping through clouds beneath an airplane's contrail." tabindex="0">
+          <img src="assets/img/puddle-sky-reflection.jpg" alt="Skywalkers Puddle Inversion reflection of two girls walking beneath cloud contrail">
+          <div class="gallery-item__content">
+            <div class="gallery-item__meta">
+              <span class="gallery-badge">Reflection</span>
+              <span class="gallery-badge gallery-badge--tag">Perspective</span>
+            </div>
+            <h3>Skywalkers: Puddle Inversion</h3>
+            <p>Creative inverted street perspective capturing two young girls reflected across a rainwater puddle beneath a sweeping sky.</p>
+          </div>
+        </article>
+
+        <!-- 07: MALL GLASS LAYERS -->
+        <article class="gallery-item" data-gallery-item data-title="The Glass Labyrinth — Cyberzone Reflections" data-text="The Glass Labyrinth — Cyberzone Reflections — Complex in-camera architectural composition exploring modern consumer spaces. Transparent glass balustrades and structural panes interweave crisscrossing escalators, vibrant neon branding, and hurried crowds into an intricate, multi-dimensional matrix of contemporary urban life." tabindex="0">
+          <img src="assets/img/mall-glass-layers.jpg" alt="The Glass Labyrinth multi-layered architectural reflection of shopping mall escalators and neon signs">
+          <div class="gallery-item__content">
+            <div class="gallery-item__meta">
+              <span class="gallery-badge">Architecture</span>
+              <span class="gallery-badge gallery-badge--tag">Layered Glass</span>
+            </div>
+            <h3>The Glass Labyrinth</h3>
+            <p>Multilayered architectural reflection creating an intricate glass matrix of shoppers, escalators, and commercial neon lights.</p>
+          </div>
+        </article>
+
+        <!-- 08: FARMER BICYCLE TRAIL -->
+        <article class="gallery-item" data-gallery-item data-title="The Countryside Commute" data-text="The Countryside Commute — Raw and evocative Philippine countryside documentary. Captured from behind, a farmer wearing a traditional woven salakot hat balances atop his bicycle while dragging a coconut palm frond along a gravel path, flanked by lush green rice paddies and an atmospheric, overcast sky." tabindex="0">
+          <img src="assets/img/farmer-bicycle-trail.jpg" alt="The Countryside Commute farmer in salakot hat riding bicycle on rural path dragging palm frond">
+          <div class="gallery-item__content">
+            <div class="gallery-item__meta">
+              <span class="gallery-badge">Rural Life</span>
+              <span class="gallery-badge gallery-badge--tag">Documentary</span>
+            </div>
+            <h3>The Countryside Commute</h3>
+            <p>Evocative rural documentary of a farmer in a traditional salakot hat navigating a countryside trail on bicycle, dragging a palm frond.</p>
+          </div>
+        </article>
+
+        <!-- 09: FISHMARKET VENDOR PORTRAIT -->
+        <article class="gallery-item" data-gallery-item data-title="THE FISHMARKET — Precision &amp; Labor" data-text="THE FISHMARKET: Precision &amp; Labor — Environmental documentary portrait by Kier Benedict. Illuminating the dedication and rhythm of wet market trades, the photograph centers on a focused fishmonger meticulously cleaning fresh catches, framed by glistening scales, ice, and atmospheric market lighting." tabindex="0">
+          <img src="assets/img/fishmarket-vendor-portrait.jpg" alt="THE FISHMARKET documentary portrait of fishmonger preparing fresh fish">
+          <div class="gallery-item__content">
+            <div class="gallery-item__meta">
+              <span class="gallery-badge">Documentary</span>
+              <span class="gallery-badge gallery-badge--tag">Environmental</span>
+            </div>
+            <h3>THE FISHMARKET: Precision</h3>
+            <p>Striking environmental portrait of a fishmonger working with focused precision over fresh catches in the morning market.</p>
+          </div>
+        </article>
+
+        <!-- 10: FISHMARKET CRATES STILL LIFE -->
+        <article class="gallery-item" data-gallery-item data-title="THE FISHMARKET — Stacks &amp; Stillness" data-text="THE FISHMARKET: Stacks &amp; Stillness — Documentary environmental still life by Kier Benedict. Captures the physical textures and quiet aftermath of the trading floor—towering stacks of weathered crates stenciled 'APRIK', heavy plastic wash tubs, and reflective wet concrete reflecting the morning market glow." tabindex="0">
+          <img src="assets/img/fishmarket-crates-still-life.jpg" alt="THE FISHMARKET still life of weathered crates and wash tubs on wet concrete">
+          <div class="gallery-item__content">
+            <div class="gallery-item__meta">
+              <span class="gallery-badge">Still Life</span>
+              <span class="gallery-badge gallery-badge--tag">Market Texture</span>
+            </div>
+            <h3>THE FISHMARKET: Stacks</h3>
+            <p>Tactile environmental still life capturing weathered fish tubs, ice containers, and wet concrete after the morning rush.</p>
+          </div>
+        </article>
+
+        <!-- Grid View Navigation Arrows -->
+        <div class="carousel-nav-arrows grid-nav-arrows" id="grid-nav-arrows">
+          <button class="shelf-nav-btn" id="grid-prev-btn" type="button" aria-label="Previous card">
+            <i class="ri-arrow-left-s-line"></i>
+          </button>
+          <button class="shelf-nav-btn" id="grid-next-btn" type="button" aria-label="Next card">
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
+        </div>
+      </section>
+      </div>
+    </div>
+  </main>
+
+  <div class="gallery-lightbox" id="gallery-lightbox" aria-hidden="true">
+    <button class="gallery-lightbox__close" id="lightbox-close" aria-label="Close fullscreen view">×</button>
+    <div class="gallery-lightbox__dialog">
+      <img id="lightbox-image" src="" alt="Expanded gallery item">
+      <div class="gallery-lightbox__caption">
+        <h3 id="lightbox-title">Gallery item</h3>
+        <p id="lightbox-text"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/gallery.js"></script>
+</body>
+</html>
