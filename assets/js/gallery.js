@@ -192,6 +192,8 @@ function initGlassCarousel() {
     const imgSrc = img ? img.src : (item.querySelector('video')?.poster || '');
     const tag = item.querySelector('.gallery-badge')?.textContent || 'Gallery';
     const num = String(index + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+    const isVideo = item.classList.contains('gallery-item--video') || !!item.dataset.videoUrl;
+    const playBadge = isVideo ? '<div class="glass-card-3d__play-pill"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><span>Video</span></div>' : '';
 
     const card = document.createElement('div');
     card.className = 'glass-card-3d';
@@ -203,6 +205,7 @@ function initGlassCarousel() {
     card.innerHTML = `
       <div class="glass-card-3d__media">
         <img src="${imgSrc}" alt="${title}" loading="lazy">
+        ${playBadge}
         <div class="glass-card-3d__top-row">
           <span class="glass-card-3d__expand-badge">Expand ⤢</span>
           <span class="glass-card-3d__menu-icon">···</span>
@@ -231,9 +234,15 @@ function initGlassCarousel() {
 
   function updatePositions() {
     const isMobile = window.innerWidth <= 768;
-    const stepX = isMobile ? Math.min(window.innerWidth * 0.42, 160) : 240;
-    const stepZ = isMobile ? 100 : 130;
-    const rotY = isMobile ? 22 : 28;
+    const isSmallMobile = window.innerWidth <= 480;
+
+    // Calibrated stepX so cards stay strictly within viewport boundaries on mobile
+    const stepX = isSmallMobile 
+      ? Math.min(window.innerWidth * 0.18, 65) 
+      : (isMobile ? Math.min(window.innerWidth * 0.22, 85) : 240);
+    const stepZ = isMobile ? 85 : 130;
+    const rotY = isMobile ? 16 : 28;
+    const mobileScale = isSmallMobile ? 0.82 : 0.86;
 
     cards.forEach((card, i) => {
       let diff = i - activeIndex;
@@ -246,30 +255,34 @@ function initGlassCarousel() {
         card.style.transform = `translate3d(0, 0, 0) rotateY(0deg) scale(1)`;
         card.style.zIndex = '10';
         card.style.opacity = '1';
+        card.style.visibility = 'visible';
         card.style.filter = 'brightness(1) blur(0px)';
         card.classList.add('is-active');
         card.style.pointerEvents = 'auto';
       } else if (absDiff === 1) {
         const sign = Math.sign(diff);
-        card.style.transform = `translate3d(${sign * stepX}px, 0, -${stepZ}px) rotateY(${-sign * rotY}deg) scale(0.88)`;
+        card.style.transform = `translate3d(${sign * stepX}px, 0, -${stepZ}px) rotateY(${-sign * rotY}deg) scale(${isMobile ? mobileScale : 0.88})`;
         card.style.zIndex = '8';
-        card.style.opacity = '0.85';
-        card.style.filter = 'brightness(0.82) blur(0.5px)';
+        card.style.opacity = isMobile ? '0.55' : '0.85';
+        card.style.visibility = 'visible';
+        card.style.filter = isMobile ? 'brightness(0.7) blur(1px)' : 'brightness(0.82) blur(0.5px)';
         card.classList.remove('is-active');
         card.style.pointerEvents = 'auto';
-      } else if (absDiff === 2) {
+      } else if (absDiff === 2 && !isMobile) {
         const sign = Math.sign(diff);
         card.style.transform = `translate3d(${sign * stepX * 1.8}px, 0, -${stepZ * 2}px) rotateY(${-sign * (rotY + 12)}deg) scale(0.76)`;
         card.style.zIndex = '6';
         card.style.opacity = '0.52';
+        card.style.visibility = 'visible';
         card.style.filter = 'brightness(0.65) blur(1.5px)';
         card.classList.remove('is-active');
         card.style.pointerEvents = 'auto';
-      } else if (absDiff === 3) {
+      } else if (absDiff === 3 && !isMobile) {
         const sign = Math.sign(diff);
         card.style.transform = `translate3d(${sign * stepX * 2.4}px, 0, -${stepZ * 3}px) rotateY(${-sign * (rotY + 20)}deg) scale(0.64)`;
         card.style.zIndex = '4';
         card.style.opacity = '0.22';
+        card.style.visibility = 'visible';
         card.style.filter = 'brightness(0.45) blur(2.5px)';
         card.classList.remove('is-active');
         card.style.pointerEvents = 'auto';
@@ -278,6 +291,7 @@ function initGlassCarousel() {
         card.style.transform = `translate3d(${sign * stepX * 3}px, 0, -${stepZ * 4}px) rotateY(${-sign * 55}deg) scale(0.5)`;
         card.style.zIndex = '1';
         card.style.opacity = '0';
+        card.style.visibility = 'hidden';
         card.style.filter = 'brightness(0.3) blur(4px)';
         card.classList.remove('is-active');
         card.style.pointerEvents = 'none';
