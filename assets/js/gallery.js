@@ -475,6 +475,23 @@ function initGlassCarousel() {
     if (e.key === 'ArrowRight') goTo(activeIndex + 1);
   });
 
+  // Wheel gesture navigation in Carousel View (prevents page blowout and navigates cards)
+  let wheelThrottle = 0;
+  window.addEventListener('wheel', (e) => {
+    if (!document.documentElement.classList.contains('is-carousel-view') && !document.body.classList.contains('is-carousel-view')) return;
+    if (lightbox?.classList.contains('active')) return;
+    if (Date.now() - wheelThrottle < 320) return;
+
+    if (Math.abs(e.deltaY) > 20 || Math.abs(e.deltaX) > 20) {
+      wheelThrottle = Date.now();
+      if (e.deltaY > 0 || e.deltaX > 0) {
+        goTo(activeIndex + 1);
+      } else {
+        goTo(activeIndex - 1);
+      }
+    }
+  }, { passive: true });
+
   const carouselSection = document.getElementById('glass-carousel-section');
   const gridSection = document.querySelector('.gallery-grid');
   const btnCarousel = document.getElementById('view-btn-carousel');
@@ -482,6 +499,8 @@ function initGlassCarousel() {
 
   function setView(view) {
     if (view === 'grid') {
+      document.documentElement.classList.remove('is-carousel-view');
+      document.documentElement.classList.add('is-grid-view');
       document.body.classList.remove('is-carousel-view');
       document.body.classList.add('is-grid-view');
       
@@ -504,6 +523,9 @@ function initGlassCarousel() {
         card.style.animation = `fadeSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) ${idx * 0.04}s both`;
       });
     } else {
+      window.scrollTo(0, 0);
+      document.documentElement.classList.remove('is-grid-view');
+      document.documentElement.classList.add('is-carousel-view');
       document.body.classList.remove('is-grid-view');
       document.body.classList.add('is-carousel-view');
       
