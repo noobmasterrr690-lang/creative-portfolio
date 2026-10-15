@@ -1521,3 +1521,205 @@ body.lightbox-open {
     padding: 0.65rem 0.8rem;
   }
 }
+
+/* ==========================================================================
+   CAROUSEL SINGLE-SCREEN COMPACT ENGINE (ELIMINATES DEAD BOTTOM SPACE)
+   ========================================================================== */
+body.is-carousel-view {
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-y: hidden;
+}
+
+body.is-carousel-view .main {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.85rem 1rem 0.65rem;
+}
+
+body.is-carousel-view .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  width: 100%;
+}
+
+body.is-carousel-view .page-header {
+  margin-bottom: 0.5rem;
+}
+
+body.is-carousel-view .page-header h1 {
+  font-size: clamp(1.4rem, 2.6vw, 1.85rem);
+  margin-bottom: 0.15rem;
+}
+
+body.is-carousel-view .page-header p {
+  font-size: 0.82rem;
+  line-height: 1.35;
+  max-width: 500px;
+}
+
+body.is-carousel-view .gallery-view-controls {
+  margin-bottom: 0.5rem;
+}
+
+body.is-carousel-view .gallery-views-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+body.is-carousel-view .glass-carousel-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0;
+}
+
+body.is-carousel-view .glass-carousel {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+body.is-carousel-view .glass-carousel__stage {
+  height: clamp(280px, 44vh, 370px);
+  width: 100%;
+}
+
+body.is-carousel-view .glass-card-3d {
+  height: clamp(270px, 42vh, 355px);
+}
+
+body.is-carousel-view .carousel-nav-arrows {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  body.is-carousel-view {
+    overflow-y: auto;
+  }
+
+  body.is-carousel-view .main {
+    padding: 0.65rem 0.65rem 0.5rem;
+  }
+
+  body.is-carousel-view .topbar {
+    margin-bottom: 0.5rem;
+    padding: 0.35rem 0.85rem;
+  }
+
+  body.is-carousel-view .page-header {
+    margin-bottom: 0.35rem;
+  }
+
+  body.is-carousel-view .page-header h1 {
+    font-size: clamp(1.35rem, 5vw, 1.7rem);
+    margin-bottom: 0.1rem;
+  }
+
+  body.is-carousel-view .page-header p {
+    font-size: 0.76rem;
+    line-height: 1.25;
+  }
+
+  body.is-carousel-view .gallery-view-controls {
+    margin-bottom: 0.35rem;
+  }
+
+  body.is-carousel-view .glass-carousel__stage {
+    height: clamp(270px, 46vh, 360px);
+  }
+
+  body.is-carousel-view .glass-card-3d {
+    width: min(92vw, 340px);
+    height: clamp(260px, 44vh, 345px);
+  }
+
+  body.is-carousel-view .glass-card-3d__media {
+    height: 56%;
+  }
+
+  body.is-carousel-view .glass-card-3d__body {
+    height: 44%;
+    padding: 0.65rem 0.85rem;
+  }
+
+  body.is-carousel-view .glass-card-3d__title {
+    font-size: 0.95rem;
+  }
+
+  body.is-carousel-view .glass-card-3d__desc {
+    font-size: 0.72rem;
+    line-height: 1.25;
+    margin: 0.1rem 0 0.15rem;
+  }
+
+  body.is-carousel-view .carousel-nav-arrows {
+    margin-top: 0.35rem;
+    margin-bottom: 0;
+  }
+
+  body.is-carousel-view .shelf-nav-btn {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    min-height: 36px;
+    font-size: 1.1rem;
+  }
+}
+
+/* ==========================================================================
+   TACTILE CUSTOM CURSOR (Fixed in Place — Never Affects Page Height)
+   ========================================================================== */
+.custom-cursor-dot {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent-primary, #00f59b);
+  pointer-events: none !important;
+  z-index: 9999;
+}
+
+.custom-cursor-ring {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0, 245, 155, 0.45);
+  pointer-events: none !important;
+  z-index: 9998;
+  transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.cursor-hover .custom-cursor-ring {
+  width: 50px;
+  height: 50px;
+  border-color: var(--accent-primary, #00f59b);
+  background-color: rgba(0, 245, 155, 0.08);
+  box-shadow: 0 0 16px rgba(0, 245, 155, 0.25);
+}
+
+@media (pointer: coarse) {
+  .custom-cursor-dot,
+  .custom-cursor-ring {
+    display: none !important;
+  }
+}
+

@@ -23,6 +23,8 @@ if (window.matchMedia('(pointer: fine)').matches && !window.matchMedia('(prefers
   const ring = document.createElement("div");
   dot.className = "custom-cursor-dot";
   ring.className = "custom-cursor-ring";
+  dot.style.cssText = "position:fixed;top:0;left:0;pointer-events:none;z-index:9999;";
+  ring.style.cssText = "position:fixed;top:0;left:0;pointer-events:none;z-index:9998;";
   document.body.append(dot, ring);
 
   let mouseX = -100, mouseY = -100;
@@ -480,6 +482,9 @@ function initGlassCarousel() {
 
   function setView(view) {
     if (view === 'grid') {
+      document.body.classList.remove('is-carousel-view');
+      document.body.classList.add('is-grid-view');
+      
       carouselSection?.classList.remove('view-active');
       carouselSection?.classList.add('view-hidden');
       
@@ -499,6 +504,9 @@ function initGlassCarousel() {
         card.style.animation = `fadeSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) ${idx * 0.04}s both`;
       });
     } else {
+      document.body.classList.remove('is-grid-view');
+      document.body.classList.add('is-carousel-view');
+      
       gridSection?.classList.remove('view-active');
       gridSection?.classList.add('view-hidden');
       
