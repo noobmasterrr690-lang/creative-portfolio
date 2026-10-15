@@ -233,16 +233,15 @@ function initGlassCarousel() {
   let isAutoplaying = false;
 
   function updatePositions() {
-    const isMobile = window.innerWidth <= 768;
-    const isSmallMobile = window.innerWidth <= 480;
+    const w = window.innerWidth;
+    const isMobile = w <= 768;
+    const isSmallMobile = w <= 480;
 
-    // Calibrated stepX so cards stay strictly within viewport boundaries on mobile
-    const stepX = isSmallMobile 
-      ? Math.min(window.innerWidth * 0.18, 65) 
-      : (isMobile ? Math.min(window.innerWidth * 0.22, 85) : 240);
-    const stepZ = isMobile ? 85 : 130;
-    const rotY = isMobile ? 16 : 28;
-    const mobileScale = isSmallMobile ? 0.82 : 0.86;
+    // Strict boundary control: keep peek cards safely inside viewport width
+    const stepX = isSmallMobile ? 42 : (isMobile ? 62 : 185);
+    const stepZ = isMobile ? 70 : 110;
+    const rotY = isMobile ? 12 : 24;
+    const mobileScale = isSmallMobile ? 0.8 : 0.84;
 
     cards.forEach((card, i) => {
       let diff = i - activeIndex;
@@ -256,43 +255,38 @@ function initGlassCarousel() {
         card.style.zIndex = '10';
         card.style.opacity = '1';
         card.style.visibility = 'visible';
+        card.style.display = 'flex';
         card.style.filter = 'brightness(1) blur(0px)';
         card.classList.add('is-active');
         card.style.pointerEvents = 'auto';
       } else if (absDiff === 1) {
         const sign = Math.sign(diff);
-        card.style.transform = `translate3d(${sign * stepX}px, 0, -${stepZ}px) rotateY(${-sign * rotY}deg) scale(${isMobile ? mobileScale : 0.88})`;
+        card.style.transform = `translate3d(${sign * stepX}px, 0, -${stepZ}px) rotateY(${-sign * rotY}deg) scale(${isMobile ? mobileScale : 0.86})`;
         card.style.zIndex = '8';
-        card.style.opacity = isMobile ? '0.55' : '0.85';
+        card.style.opacity = isMobile ? '0.45' : '0.8';
         card.style.visibility = 'visible';
-        card.style.filter = isMobile ? 'brightness(0.7) blur(1px)' : 'brightness(0.82) blur(0.5px)';
+        card.style.display = 'flex';
+        card.style.filter = isMobile ? 'brightness(0.65) blur(1px)' : 'brightness(0.82) blur(0.5px)';
         card.classList.remove('is-active');
         card.style.pointerEvents = 'auto';
       } else if (absDiff === 2 && !isMobile) {
         const sign = Math.sign(diff);
-        card.style.transform = `translate3d(${sign * stepX * 1.8}px, 0, -${stepZ * 2}px) rotateY(${-sign * (rotY + 12)}deg) scale(0.76)`;
+        card.style.transform = `translate3d(${sign * stepX * 1.6}px, 0, -${stepZ * 1.8}px) rotateY(${-sign * (rotY + 8)}deg) scale(0.74)`;
         card.style.zIndex = '6';
-        card.style.opacity = '0.52';
+        card.style.opacity = '0.42';
         card.style.visibility = 'visible';
-        card.style.filter = 'brightness(0.65) blur(1.5px)';
-        card.classList.remove('is-active');
-        card.style.pointerEvents = 'auto';
-      } else if (absDiff === 3 && !isMobile) {
-        const sign = Math.sign(diff);
-        card.style.transform = `translate3d(${sign * stepX * 2.4}px, 0, -${stepZ * 3}px) rotateY(${-sign * (rotY + 20)}deg) scale(0.64)`;
-        card.style.zIndex = '4';
-        card.style.opacity = '0.22';
-        card.style.visibility = 'visible';
-        card.style.filter = 'brightness(0.45) blur(2.5px)';
+        card.style.display = 'flex';
+        card.style.filter = 'brightness(0.6) blur(1.5px)';
         card.classList.remove('is-active');
         card.style.pointerEvents = 'auto';
       } else {
-        const sign = Math.sign(diff);
-        card.style.transform = `translate3d(${sign * stepX * 3}px, 0, -${stepZ * 4}px) rotateY(${-sign * 55}deg) scale(0.5)`;
+        // Strict cleanup: hide any cards further away so they NEVER cause sideways scrolling
+        card.style.transform = `translate3d(0, 0, -300px) scale(0.4)`;
         card.style.zIndex = '1';
         card.style.opacity = '0';
         card.style.visibility = 'hidden';
-        card.style.filter = 'brightness(0.3) blur(4px)';
+        card.style.display = 'none';
+        card.style.filter = 'brightness(0.2) blur(4px)';
         card.classList.remove('is-active');
         card.style.pointerEvents = 'none';
       }
@@ -412,30 +406,38 @@ function initGlassCarousel() {
   });
 
   let startX = 0;
+  let startY = 0;
   let isDragging = false;
 
   stage.addEventListener('mousedown', (e) => {
     startX = e.clientX;
+    startY = e.clientY;
     isDragging = true;
   });
   window.addEventListener('mouseup', (e) => {
     if (!isDragging) return;
     isDragging = false;
-    const diff = e.clientX - startX;
-    if (Math.abs(diff) > 40) {
-      if (diff > 0) goTo(activeIndex - 1);
+    const diffX = e.clientX - startX;
+    const diffY = e.clientY - startY;
+    if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+      if (diffX > 0) goTo(activeIndex - 1);
       else goTo(activeIndex + 1);
     }
   });
 
   stage.addEventListener('touchstart', (e) => {
+    if (!e.touches || !e.touches[0]) return;
     startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
   }, { passive: true });
   stage.addEventListener('touchend', (e) => {
+    if (!e.changedTouches || !e.changedTouches[0]) return;
     const endX = e.changedTouches[0].clientX;
-    const diff = endX - startX;
-    if (Math.abs(diff) > 35) {
-      if (diff > 0) goTo(activeIndex - 1);
+    const endY = e.changedTouches[0].clientY;
+    const diffX = endX - startX;
+    const diffY = endY - startY;
+    if (Math.abs(diffX) > 35 && Math.abs(diffX) > Math.abs(diffY)) {
+      if (diffX > 0) goTo(activeIndex - 1);
       else goTo(activeIndex + 1);
     }
   }, { passive: true });
