@@ -12,6 +12,11 @@ const lightboxTitle = document.getElementById('lightbox-title');
 const lightboxText = document.getElementById('lightbox-text');
 const lightboxClose = document.getElementById('lightbox-close');
 
+// Prevent pinch-to-zoom and multi-touch gesture zoom on mobile
+document.addEventListener('gesturestart', (e) => e.preventDefault(), { passive: false });
+document.addEventListener('gesturechange', (e) => e.preventDefault(), { passive: false });
+document.addEventListener('gestureend', (e) => e.preventDefault(), { passive: false });
+
 // Soft tactile cursor matching portfolio
 if (window.matchMedia('(pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   const dot = document.createElement("div");
@@ -233,15 +238,7 @@ function initGlassCarousel() {
   let isAutoplaying = false;
 
   function updatePositions() {
-    const w = window.innerWidth;
-    const isMobile = w <= 768;
-    const isSmallMobile = w <= 480;
-
-    // Strict boundary control: keep peek cards safely inside viewport width
-    const stepX = isSmallMobile ? 42 : (isMobile ? 62 : 185);
-    const stepZ = isMobile ? 70 : 110;
-    const rotY = isMobile ? 12 : 24;
-    const mobileScale = isSmallMobile ? 0.8 : 0.84;
+    const isMobile = window.innerWidth <= 768;
 
     cards.forEach((card, i) => {
       let diff = i - activeIndex;
@@ -250,45 +247,69 @@ function initGlassCarousel() {
 
       const absDiff = Math.abs(diff);
 
-      if (absDiff === 0) {
-        card.style.transform = `translate3d(0, 0, 0) rotateY(0deg) scale(1)`;
-        card.style.zIndex = '10';
-        card.style.opacity = '1';
-        card.style.visibility = 'visible';
-        card.style.display = 'flex';
-        card.style.filter = 'brightness(1) blur(0px)';
-        card.classList.add('is-active');
-        card.style.pointerEvents = 'auto';
-      } else if (absDiff === 1) {
-        const sign = Math.sign(diff);
-        card.style.transform = `translate3d(${sign * stepX}px, 0, -${stepZ}px) rotateY(${-sign * rotY}deg) scale(${isMobile ? mobileScale : 0.86})`;
-        card.style.zIndex = '8';
-        card.style.opacity = isMobile ? '0.45' : '0.8';
-        card.style.visibility = 'visible';
-        card.style.display = 'flex';
-        card.style.filter = isMobile ? 'brightness(0.65) blur(1px)' : 'brightness(0.82) blur(0.5px)';
-        card.classList.remove('is-active');
-        card.style.pointerEvents = 'auto';
-      } else if (absDiff === 2 && !isMobile) {
-        const sign = Math.sign(diff);
-        card.style.transform = `translate3d(${sign * stepX * 1.6}px, 0, -${stepZ * 1.8}px) rotateY(${-sign * (rotY + 8)}deg) scale(0.74)`;
-        card.style.zIndex = '6';
-        card.style.opacity = '0.42';
-        card.style.visibility = 'visible';
-        card.style.display = 'flex';
-        card.style.filter = 'brightness(0.6) blur(1.5px)';
-        card.classList.remove('is-active');
-        card.style.pointerEvents = 'auto';
+      if (isMobile) {
+        // MOBILE VIEW: Exactly ONE card fits the exact view.
+        // No sideways offset, no cards translated off-screen, completely eliminating canvas blowout and horizontal scroll.
+        if (absDiff === 0) {
+          card.style.transform = 'translate3d(0, 0, 0) scale(1)';
+          card.style.zIndex = '10';
+          card.style.opacity = '1';
+          card.style.visibility = 'visible';
+          card.style.display = 'flex';
+          card.style.filter = 'brightness(1) blur(0px)';
+          card.classList.add('is-active');
+          card.style.pointerEvents = 'auto';
+        } else {
+          card.style.transform = 'translate3d(0, 0, -80px) scale(0.92)';
+          card.style.zIndex = '1';
+          card.style.opacity = '0';
+          card.style.visibility = 'hidden';
+          card.style.display = 'none';
+          card.style.filter = 'brightness(0.3) blur(2px)';
+          card.classList.remove('is-active');
+          card.style.pointerEvents = 'none';
+        }
       } else {
-        // Strict cleanup: hide any cards further away so they NEVER cause sideways scrolling
-        card.style.transform = `translate3d(0, 0, -300px) scale(0.4)`;
-        card.style.zIndex = '1';
-        card.style.opacity = '0';
-        card.style.visibility = 'hidden';
-        card.style.display = 'none';
-        card.style.filter = 'brightness(0.2) blur(4px)';
-        card.classList.remove('is-active');
-        card.style.pointerEvents = 'none';
+        // DESKTOP VIEW: Full 3D Coverflow with angled peek cards
+        if (absDiff === 0) {
+          card.style.transform = 'translate3d(0, 0, 0) rotateY(0deg) scale(1)';
+          card.style.zIndex = '10';
+          card.style.opacity = '1';
+          card.style.visibility = 'visible';
+          card.style.display = 'flex';
+          card.style.filter = 'brightness(1) blur(0px)';
+          card.classList.add('is-active');
+          card.style.pointerEvents = 'auto';
+        } else if (absDiff === 1) {
+          const sign = Math.sign(diff);
+          card.style.transform = `translate3d(${sign * 185}px, 0, -110px) rotateY(${-sign * 24}deg) scale(0.86)`;
+          card.style.zIndex = '8';
+          card.style.opacity = '0.8';
+          card.style.visibility = 'visible';
+          card.style.display = 'flex';
+          card.style.filter = 'brightness(0.82) blur(0.5px)';
+          card.classList.remove('is-active');
+          card.style.pointerEvents = 'auto';
+        } else if (absDiff === 2) {
+          const sign = Math.sign(diff);
+          card.style.transform = `translate3d(${sign * 295}px, 0, -195px) rotateY(${-sign * 32}deg) scale(0.74)`;
+          card.style.zIndex = '6';
+          card.style.opacity = '0.42';
+          card.style.visibility = 'visible';
+          card.style.display = 'flex';
+          card.style.filter = 'brightness(0.6) blur(1.5px)';
+          card.classList.remove('is-active');
+          card.style.pointerEvents = 'auto';
+        } else {
+          card.style.transform = 'translate3d(0, 0, -300px) scale(0.4)';
+          card.style.zIndex = '1';
+          card.style.opacity = '0';
+          card.style.visibility = 'hidden';
+          card.style.display = 'none';
+          card.style.filter = 'brightness(0.2) blur(4px)';
+          card.classList.remove('is-active');
+          card.style.pointerEvents = 'none';
+        }
       }
     });
 
@@ -441,6 +462,10 @@ function initGlassCarousel() {
       else goTo(activeIndex + 1);
     }
   }, { passive: true });
+
+  window.addEventListener('resize', () => {
+    updatePositions();
+  });
 
   window.addEventListener('keydown', (e) => {
     if (lightbox?.classList.contains('active')) return;
