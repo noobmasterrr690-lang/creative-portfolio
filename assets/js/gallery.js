@@ -239,8 +239,11 @@ function initGlassCarousel() {
   let autoplayTimer = null;
   let isAutoplaying = false;
 
+  let hasSwiped = false;
+
   function updatePositions() {
     const isMobile = window.innerWidth <= 768;
+    const isNarrowMobile = window.innerWidth <= 420;
 
     cards.forEach((card, i) => {
       let diff = i - activeIndex;
@@ -250,24 +253,43 @@ function initGlassCarousel() {
       const absDiff = Math.abs(diff);
 
       if (isMobile) {
-        // MOBILE VIEW: Exactly ONE card fits the exact view.
-        // No sideways offset, no cards translated off-screen, completely eliminating canvas blowout and horizontal scroll.
+        // MOBILE 3D COVERFLOW ENGINE (Fluid 3D rotation, visible peek cards, 0 scroll blowout)
         if (absDiff === 0) {
-          card.style.transform = 'translate3d(0, 0, 0) scale(1)';
+          card.style.transform = 'translate3d(0, 0, 0) rotateY(0deg) scale(1)';
           card.style.zIndex = '10';
           card.style.opacity = '1';
           card.style.visibility = 'visible';
-          card.style.display = 'flex';
           card.style.filter = 'brightness(1) blur(0px)';
           card.classList.add('is-active');
           card.style.pointerEvents = 'auto';
+        } else if (absDiff === 1) {
+          const sign = Math.sign(diff);
+          const offsetX = sign * (isNarrowMobile ? 96 : 118);
+          const rotateY = -sign * 22;
+          card.style.transform = `translate3d(${offsetX}px, 0, -65px) rotateY(${rotateY}deg) scale(0.84)`;
+          card.style.zIndex = '8';
+          card.style.opacity = '0.72';
+          card.style.visibility = 'visible';
+          card.style.filter = 'brightness(0.72) blur(0.4px)';
+          card.classList.remove('is-active');
+          card.style.pointerEvents = 'auto'; // Tapping peek card brings it forward
+        } else if (absDiff === 2) {
+          const sign = Math.sign(diff);
+          const offsetX = sign * (isNarrowMobile ? 165 : 195);
+          const rotateY = -sign * 32;
+          card.style.transform = `translate3d(${offsetX}px, 0, -135px) rotateY(${rotateY}deg) scale(0.7)`;
+          card.style.zIndex = '4';
+          card.style.opacity = '0';
+          card.style.visibility = 'hidden';
+          card.style.filter = 'brightness(0.4) blur(1.5px)';
+          card.classList.remove('is-active');
+          card.style.pointerEvents = 'none';
         } else {
-          card.style.transform = 'translate3d(0, 0, -80px) scale(0.92)';
+          card.style.transform = 'translate3d(0, 0, -250px) scale(0.5)';
           card.style.zIndex = '1';
           card.style.opacity = '0';
           card.style.visibility = 'hidden';
-          card.style.display = 'none';
-          card.style.filter = 'brightness(0.3) blur(2px)';
+          card.style.filter = 'brightness(0.2) blur(4px)';
           card.classList.remove('is-active');
           card.style.pointerEvents = 'none';
         }
@@ -278,7 +300,6 @@ function initGlassCarousel() {
           card.style.zIndex = '10';
           card.style.opacity = '1';
           card.style.visibility = 'visible';
-          card.style.display = 'flex';
           card.style.filter = 'brightness(1) blur(0px)';
           card.classList.add('is-active');
           card.style.pointerEvents = 'auto';
@@ -288,7 +309,6 @@ function initGlassCarousel() {
           card.style.zIndex = '8';
           card.style.opacity = '0.8';
           card.style.visibility = 'visible';
-          card.style.display = 'flex';
           card.style.filter = 'brightness(0.82) blur(0.5px)';
           card.classList.remove('is-active');
           card.style.pointerEvents = 'auto';
@@ -298,7 +318,6 @@ function initGlassCarousel() {
           card.style.zIndex = '6';
           card.style.opacity = '0.42';
           card.style.visibility = 'visible';
-          card.style.display = 'flex';
           card.style.filter = 'brightness(0.6) blur(1.5px)';
           card.classList.remove('is-active');
           card.style.pointerEvents = 'auto';
@@ -307,7 +326,6 @@ function initGlassCarousel() {
           card.style.zIndex = '1';
           card.style.opacity = '0';
           card.style.visibility = 'hidden';
-          card.style.display = 'none';
           card.style.filter = 'brightness(0.2) blur(4px)';
           card.classList.remove('is-active');
           card.style.pointerEvents = 'none';
@@ -349,6 +367,7 @@ function initGlassCarousel() {
 
   cards.forEach((card, i) => {
     card.addEventListener('click', () => {
+      if (hasSwiped) return;
       if (i === activeIndex) {
         if (typeof openLightbox === 'function') openLightbox(items[i]);
       } else {
@@ -428,42 +447,75 @@ function initGlassCarousel() {
     updatePositions();
   });
 
-  let startX = 0;
-  let startY = 0;
-  let isDragging = false;
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let touchStartTime = 0;
 
-  stage.addEventListener('mousedown', (e) => {
-    startX = e.clientX;
-    startY = e.clientY;
-    isDragging = true;
-  });
-  window.addEventListener('mouseup', (e) => {
-    if (!isDragging) return;
-    isDragging = false;
-    const diffX = e.clientX - startX;
-    const diffY = e.clientY - startY;
-    if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
-      if (diffX > 0) goTo(activeIndex - 1);
-      else goTo(activeIndex + 1);
-    }
-  });
-
+  // Touch Swipe Handling on the Stage
   stage.addEventListener('touchstart', (e) => {
     if (!e.touches || !e.touches[0]) return;
-    startX = e.touches[0].clientX;
-    startY = e.touches[0].clientY;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    touchStartTime = Date.now();
+    hasSwiped = false;
   }, { passive: true });
+
+  stage.addEventListener('touchmove', (e) => {
+    if (!e.touches || !e.touches[0]) return;
+    const currentX = e.touches[0].clientX;
+    const currentY = e.touches[0].clientY;
+    const diffX = currentX - touchStartX;
+    const diffY = currentY - touchStartY;
+    if (Math.abs(diffX) > 8) {
+      hasSwiped = true;
+    }
+  }, { passive: true });
+
   stage.addEventListener('touchend', (e) => {
     if (!e.changedTouches || !e.changedTouches[0]) return;
     const endX = e.changedTouches[0].clientX;
     const endY = e.changedTouches[0].clientY;
-    const diffX = endX - startX;
-    const diffY = endY - startY;
-    if (Math.abs(diffX) > 35 && Math.abs(diffX) > Math.abs(diffY)) {
+    const diffX = endX - touchStartX;
+    const diffY = endY - touchStartY;
+    const elapsed = Date.now() - touchStartTime;
+
+    const isFlick = elapsed < 260 && Math.abs(diffX) > 20;
+    const isSwipe = Math.abs(diffX) > 30;
+
+    if ((isFlick || isSwipe) && Math.abs(diffX) > Math.abs(diffY)) {
       if (diffX > 0) goTo(activeIndex - 1);
       else goTo(activeIndex + 1);
     }
+    setTimeout(() => { hasSwiped = false; }, 60);
   }, { passive: true });
+
+  // Mouse Drag Handling for Desktop
+  let mouseStartX = 0;
+  let isMouseDragging = false;
+
+  stage.addEventListener('mousedown', (e) => {
+    mouseStartX = e.clientX;
+    isMouseDragging = true;
+    hasSwiped = false;
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isMouseDragging) return;
+    if (Math.abs(e.clientX - mouseStartX) > 8) {
+      hasSwiped = true;
+    }
+  });
+
+  window.addEventListener('mouseup', (e) => {
+    if (!isMouseDragging) return;
+    isMouseDragging = false;
+    const diffX = e.clientX - mouseStartX;
+    if (Math.abs(diffX) > 35) {
+      if (diffX > 0) goTo(activeIndex - 1);
+      else goTo(activeIndex + 1);
+    }
+    setTimeout(() => { hasSwiped = false; }, 60);
+  });
 
   window.addEventListener('resize', () => {
     updatePositions();

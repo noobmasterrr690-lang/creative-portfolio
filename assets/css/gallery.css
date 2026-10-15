@@ -1269,7 +1269,8 @@ body.lightbox-open {
   }
 
   .glass-carousel {
-    perspective: none;
+    perspective: 850px;
+    perspective-origin: 50% 45%;
     overflow: clip;
     width: 100%;
     max-width: 100%;
@@ -1666,7 +1667,7 @@ body.is-carousel-view .carousel-nav-arrows {
   margin-bottom: 0.15rem !important;
 }
 
-/* 8. Mobile responsive overrides (no scroll blowout, clean 1-card presentation) */
+/* 8. Mobile responsive overrides (genuine 3D Coverflow motion, zero scroll blowout) */
 @media (max-width: 768px) {
   html.is-carousel-view,
   body.is-carousel-view {
@@ -1675,28 +1676,29 @@ body.is-carousel-view .carousel-nav-arrows {
     max-height: 100dvh !important;
     overflow: hidden !important;
     overscroll-behavior: none !important;
+    touch-action: none !important;
   }
 
   body.is-carousel-view .main {
-    padding: 0.5rem 0.65rem 0.4rem !important;
+    padding: 0.45rem 0.65rem 0.35rem !important;
   }
 
   body.is-carousel-view .topbar {
-    margin-bottom: 0.35rem !important;
+    margin-bottom: 0.3rem !important;
     padding: 0.3rem 0.8rem !important;
   }
 
   body.is-carousel-view .page-header {
-    margin-bottom: 0.25rem !important;
+    margin-bottom: 0.2rem !important;
   }
 
   body.is-carousel-view .page-header h1 {
-    font-size: clamp(1.2rem, 4.8vw, 1.55rem) !important;
-    margin-bottom: 0.08rem !important;
+    font-size: clamp(1.15rem, 4.6vw, 1.45rem) !important;
+    margin-bottom: 0.05rem !important;
   }
 
   body.is-carousel-view .page-header p {
-    font-size: 0.74rem !important;
+    font-size: 0.72rem !important;
     line-height: 1.25 !important;
   }
 
@@ -1704,14 +1706,30 @@ body.is-carousel-view .carousel-nav-arrows {
     margin-bottom: 0.25rem !important;
   }
 
+  body.is-carousel-view .glass-carousel {
+    perspective: 800px !important;
+    perspective-origin: 50% 45% !important;
+    width: 100% !important;
+    overflow: hidden !important;
+  }
+
   body.is-carousel-view .glass-carousel__stage {
-    min-height: 230px !important;
-    max-height: clamp(260px, 45vh, 360px) !important;
+    min-height: 240px !important;
+    max-height: clamp(260px, 46vh, 370px) !important;
+    touch-action: none !important;
+    cursor: grab;
+    overflow: visible !important;
   }
 
   body.is-carousel-view .glass-card-3d {
-    width: min(92vw, 330px) !important;
-    height: clamp(250px, 43vh, 350px) !important;
+    width: clamp(230px, 72vw, 290px) !important;
+    height: clamp(250px, 44vh, 355px) !important;
+    margin: 0 !important;
+    transition: transform 0.46s cubic-bezier(0.16, 1, 0.3, 1), 
+                opacity 0.38s ease, 
+                filter 0.38s ease, 
+                box-shadow 0.35s ease !important;
+    will-change: transform, opacity, filter;
   }
 
   body.is-carousel-view .glass-card-3d__media {
@@ -1724,26 +1742,33 @@ body.is-carousel-view .carousel-nav-arrows {
   }
 
   body.is-carousel-view .glass-card-3d__title {
-    font-size: 0.9rem !important;
+    font-size: 0.88rem !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
   }
 
   body.is-carousel-view .glass-card-3d__desc {
-    font-size: 0.7rem !important;
-    line-height: 1.2 !important;
+    font-size: 0.68rem !important;
+    line-height: 1.25 !important;
     margin: 0.1rem 0 0.15rem !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
   }
 
   body.is-carousel-view .carousel-nav-arrows {
     margin-top: 0.3rem !important;
-    margin-bottom: 0 !important;
+    margin-bottom: 0.1rem !important;
   }
 
   body.is-carousel-view .shelf-nav-btn {
-    width: 38px !important;
-    height: 38px !important;
-    min-width: 38px !important;
-    min-height: 38px !important;
-    font-size: 1.15rem !important;
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px !important;
+    min-height: 40px !important;
+    font-size: 1.2rem !important;
   }
 }
 
