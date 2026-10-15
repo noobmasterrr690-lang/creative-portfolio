@@ -1771,8 +1771,9 @@ ul {
   background-position: center 30%;
 }
 .work-card__media--game {
-  background-image: linear-gradient(135deg, rgba(0, 245, 155, 0.35), rgba(7, 9, 11, 0.8)), url('assets/img/pop.png');
+  background-image: linear-gradient(135deg, rgba(0, 245, 155, 0.25), rgba(7, 9, 11, 0.85)), url('../img/catdash-controller.jpg');
   background-size: cover;
+  background-position: center;
 }
 
 .work-card__badges {
